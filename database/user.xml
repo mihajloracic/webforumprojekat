@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<table>
+    <database></database>
+    <name>user</name>
+    <ddl>CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, user VARCHAR (30) NOT NULL UNIQUE, ime VARCHAR (45) NOT NULL, prezime VARCHAR (45) NOT NULL, lozinka VARCHAR (45), uloga STRING (10) NOT NULL, telefon VARCHAR (45), email VARCHAR (45), datum_registracije DATE);</ddl>
+    <columns>
+        <column>
+            <name>id</name>
+            <type>INTEGER</type>
+            <constraints>
+                <constraint>
+                    <type>PRIMARY KEY</type>
+                    <definition>PRIMARY KEY AUTOINCREMENT</definition>
+                </constraint>
+            </constraints>
+        </column>
+        <column>
+            <name>user</name>
+            <type>VARCHAR</type>
+            <constraints>
+                <constraint>
+                    <type>NOT NULL</type>
+                    <definition>NOT NULL </definition>
+                </constraint>
+                <constraint>
+                    <type>UNIQUE</type>
+                    <definition>UNIQUE</definition>
+                </constraint>
+            </constraints>
+        </column>
+        <column>
+            <name>ime</name>
+            <type>VARCHAR</type>
+            <constraints>
+                <constraint>
+                    <type>NOT NULL</type>
+                    <definition>NOT NULL</definition>
+                </constraint>
+            </constraints>
+        </column>
+        <column>
+            <name>prezime</name>
+            <type>VARCHAR</type>
+            <constraints>
+                <constraint>
+                    <type>NOT NULL</type>
+                    <definition>NOT NULL</definition>
+                </constraint>
+            </constraints>
+        </column>
+        <column>
+            <name>lozinka</name>
+            <type>VARCHAR</type>
+        </column>
+        <column>
+            <name>uloga</name>
+            <type>STRING</type>
+            <constraints>
+                <constraint>
+                    <type>NOT NULL</type>
+                    <definition>NOT NULL</definition>
+                </constraint>
+            </constraints>
+        </column>
+        <column>
+            <name>telefon</name>
+            <type>VARCHAR</type>
+        </column>
+        <column>
+            <name>email</name>
+            <type>VARCHAR</type>
+        </column>
+        <column>
+            <name>datum_registracije</name>
+            <type>DATE</type>
+        </column>
+    </columns>
+    <rows>
+        <row>
+            <value column="0">1</value>
+            <value column="1">user</value>
+            <value column="2">ime</value>
+            <value column="3">prezime</value>
+            <value column="4">password</value>
+            <value column="5">rola</value>
+            <value column="6">1234-1234</value>
+            <value column="7">user@mailserver.com</value>
+            <value column="8">01.01.2017</value>
+        </row>
+    </rows>
+</table>
