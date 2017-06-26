@@ -67,7 +67,6 @@ public class UserService {
 	}
 			
 	
-	
 	@POST
 	@Path("/add")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})

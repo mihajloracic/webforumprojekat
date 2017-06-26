@@ -71,7 +71,7 @@ $(document).on('submit', '.productsform', function(e) {
 	var id = $(this).find("input[type=hidden]").val();
 	var count = $(this).find("input").val();
 	$.ajax({
-		type : 'POST',
+		type : 'GET',
 		url : rootURL,
 		contentType : 'application/json',
 		dataType : "text",
