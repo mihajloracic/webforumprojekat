@@ -1,5 +1,6 @@
 package rs.ftn.mr.webforum.daoimpl;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -64,6 +65,7 @@ public class UserDAOImpl implements UserDAO {
 		u.setUser(rs.getString("user"));
 		u.setIme(rs.getString("ime"));
 		u.setPrezime(rs.getString("prezime"));
+		u.setLozinka(rs.getString("lozinka"));
 		// TODO dodati setovanje ostalih atributa	
 	}
 
@@ -119,7 +121,6 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void delete(int userId) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -132,6 +133,31 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public int addNew(User user) {
 		// TODO Auto-generated method stub
+		String sql = "INSERT INTO user (user,ime,prezime,lozinka,uloga,telefon,email,datum_registracije)"
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		PreparedStatement p = null;
+		try {
+			
+			p = DbConnection.getConnection().prepareStatement(sql);
+			
+			p.setString(1, user.getUser());
+			p.setString(2, user.getIme());
+			p.setString(3, user.getPrezime());
+			p.setString(4, user.getLozinka());
+			p.setString(5, "korisnik");
+			p.setString(6, user.getTelefon());
+			p.setString(7, user.getEmail());
+			java.util.Date utilDate = new java.util.Date();
+			p.setDate(8, new Date(utilDate.getTime()));
+			p.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return 0;
 	}
 

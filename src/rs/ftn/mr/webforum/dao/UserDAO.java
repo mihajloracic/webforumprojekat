@@ -54,7 +54,7 @@ public interface UserDAO {
 	 * @param user Reference to a valid and configured <code>User</code> object
 	 * @return The new user id
 	 */
-	public int addNew(User user) ;
+	public int addNew(User user);
 
 	
 

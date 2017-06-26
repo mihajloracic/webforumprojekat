@@ -24,8 +24,7 @@ public class DbConnection {
 	{
     	if (con == null){
     		Class.forName("org.sqlite.JDBC").newInstance();
-    		con = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\mihajlo\\JavaWebProjekti\\rs.ftn.mr.webforum\\database\\webforum.db");
-		
+    		con = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\mihajlo\\JavaWebProjekti\\rs.ftn.mr.webforum\\database\\webforum.db");	
     	}
 	    
 		return con; 

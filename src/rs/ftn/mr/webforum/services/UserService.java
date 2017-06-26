@@ -1,7 +1,9 @@
 package rs.ftn.mr.webforum.services;
 
 import java.util.List;
+import java.util.UUID;
 
+import javax.servlet.http.Cookie;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.GET;
@@ -66,19 +68,51 @@ public class UserService {
 
 	}
 			
-	
+	@POST
+	@Path("/login")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+//    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response login(User user) {	
+		System.out.println(user.getImePrezime());
+		
+		Response response;
+		
+		UserDAO userDAO = new UserDAOImpl();
+		String lozinka = userDAO.selectByName(user.getUser()).getLozinka();
+		int id =  userDAO.selectByName(user.getUser()).getId();
+		String cookieId = UUID.randomUUID().toString();
+		if(lozinka.equals(user.getLozinka())){
+			CookieDao dao = new CookieDaoImpl();
+			dao.add(new Cookie("web-forum",cookieId), id);
+			   response = Response.
+					   status(200).entity(cookieId).
+					   build();
+			   
+		}else{
+			response = Response.status(405).build();
+		}
+		return response;
+	}
 	@POST
 	@Path("/add")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 //    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	@Produces(MediaType.TEXT_PLAIN)
-	public String add(User user) {	
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response add(User user) {	
 		System.out.println(user.getImePrezime());
 		
+		Response response;
+		
 		UserDAO userDAO = new UserDAOImpl();
-		userDAO.addNew(user);		
-		System.out.println(user.toString());
-		return "OK";
+		
+		if(userDAO.selectByName(user.getUser()) == null){
+			userDAO.addNew(user);		
+			   response = Response.status(200).build();
+		}else{
+			response = Response.status(405).build();
+		}
+		return response;
 	}
 }
 
