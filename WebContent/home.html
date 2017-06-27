@@ -15,14 +15,61 @@
   <div class="container-fluid">
       <ul class="nav navbar-nav">
         <li><a id="user-name" href="#"></a></li>
-        <li><a id="addPodforum" href="#">Dodaj podforum</a></li>
+        <li><a id="addPodforum" href="#" data-toggle="modal" data-target="#myModal">Dodaj podforum</a></li>
         <li><a id="user-looged-in" href="#">Prijava</a></li>
 		<li><a id="logout" href="#">Odjava</a></li>
       </ul>
       
   </div><!-- /.container-fluid -->
 </nav>
-	<h1>Welcome <p id="loggedUser"></p></h1>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Dodavanje podforuma</h4>
+      </div>
+      <div class="modal-body">
+       <form>
+  <div class="form-group">
+    <label for="formGroupExampleInput">Naziv podforuma</label>
+    <input type="text" class="form-control" id="modalNaziv" placeholder="Naziv podforuma">
+  </div>
+  <div class="form-group">
+    <label for="formGroupExampleInput2">Opis podforuma</label>
+    <input type="text" class="form-control" id="modalOpis" placeholder="Opis podforuma">
+  </div>
+  <div class="form-group">
+    <label for="formGroupExampleInput2">Pravila</label>
+    <input type="text" class="form-control" id="modalPravila" placeholder="Pravila">
+  </div>
+</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+        <button id="buttonDodajPodforum" type="button" class="btn btn-primary" data-dismiss="modal">Dodaj podforum</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+<div class="container">
+	<div class="jumbotron">
+    <h1>Web forum</h1> 
+    
+  </div>
+  
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+  <ul  class="nav navbar-nav" id="podforum-holder">
+  	 <li><a href="#">Primer</a></li>
+  	<li><a href="#">Primer</a></li>
+  	<li><a href="#">Primer</a></li>
+  </ul>
+  </div>
+  </nav>
+  
+</div>
 </body>
 </html>

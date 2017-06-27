@@ -17,8 +17,7 @@ $(function() {
 });
 
 $( document ).ready(function() {
-	if($.cookie("web-forum") != null && $.cookie("web-forum") != "" && $.cookie("web-forum") != undefined){
-		
+	if($.cookie("web-forum") != null && $.cookie("web-forum") != "" && $.cookie("web-forum") != undefined){		
 		window.location.replace("http://localhost:7653/rs.ftn.mr.webforum/home.html");
 	}
 });
@@ -77,8 +76,7 @@ $(document).on('submit', '#login-form', function(e) {
 		dataType : "text",
 		data : registerformToJSON(username,ime,prezime,email,password,telefon),
 		success : function(data) {
-			$.cookie("web-forum", data,{expires: new Date(2017, 10, 29, 11, 00, 00)});
-			console.log(getCookie("web-forum"));
+			$.cookie("web-forum", data);
 			window.location.replace("http://localhost:7653/rs.ftn.mr.webforum/home.html");
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -97,25 +95,4 @@ function registerformToJSON(username, ime,prezime,email,password,telefon) {
 	    "uloga": null,
 	    "datumRegistracije": null
 	});
-}
-function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires="+ d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
 }

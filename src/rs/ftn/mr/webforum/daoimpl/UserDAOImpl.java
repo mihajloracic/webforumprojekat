@@ -66,6 +66,8 @@ public class UserDAOImpl implements UserDAO {
 		u.setIme(rs.getString("ime"));
 		u.setPrezime(rs.getString("prezime"));
 		u.setLozinka(rs.getString("lozinka"));
+		u.setUloga(rs.getString("uloga"));
+		
 		// TODO dodati setovanje ostalih atributa	
 	}
 

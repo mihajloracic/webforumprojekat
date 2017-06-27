@@ -16,13 +16,15 @@ public class CookieDaoImpl implements CookieDao {
 
 	@Override
 	public void add(Cookie cookie, int userId) {
-		String sql = "INSERT INTO user_cookie (cookie,user_id)"
-				+ "VALUES (?, ?)";
+		String sql = "INSERT INTO user_cookie (cookie,user_id,date)"
+				+ "VALUES (?, ?, ?)";
 		PreparedStatement p = null;
+		java.util.Date utilDate = new java.util.Date();
 		try {
 			p = DbConnection.getConnection().prepareStatement(sql);			
 			p.setString(1, cookie.getValue());
 			p.setInt(2, userId);
+			p.setDate(3, new Date(utilDate.getTime() + 36000000));
 			p.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
