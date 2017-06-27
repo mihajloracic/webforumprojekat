@@ -114,5 +114,30 @@ public class UserService {
 		}
 		return response;
 	}
+	@POST
+	@Path("/cookie")
+	@Consumes({ MediaType.TEXT_PLAIN, MediaType.APPLICATION_XML})
+//    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getUserByCookie(String cookie) {	
+		User u;
+		
+		Response response = null;
+		
+		UserDAO userDAO = new UserDAOImpl();
+		CookieDao cookieDao = new CookieDaoImpl();
+		u = userDAO.selectById(cookieDao.getById(cookie));
+		if(u != null){
+			response = Response.status(200)
+		    		.entity(u)
+		    		.build();
+			
+		}else{
+			response = Response.status(404)
+		    		.build();
+		}
+	    
+		return response;
+	}
 }
 

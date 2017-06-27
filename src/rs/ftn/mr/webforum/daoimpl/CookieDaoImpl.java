@@ -34,14 +34,14 @@ public class CookieDaoImpl implements CookieDao {
 	}
 
 	@Override
-	public int getById(Cookie cookie) {
+	public int getById(String cookie) {
     	String sql = "select * from user_cookie where cookie=?";
     	PreparedStatement p = null;
 		ResultSet rs = null;
 		try {
 			p = DbConnection.getConnection()
 						.prepareStatement(sql);
-			p.setString(1, cookie.getValue());
+			p.setString(1, cookie);
 			rs = p.executeQuery();			            
 			return rs.getInt("user_id");
 		} catch (SQLException e) {

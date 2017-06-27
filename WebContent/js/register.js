@@ -17,10 +17,10 @@ $(function() {
 });
 
 $( document ).ready(function() {
-	if($.cookie("web-forum") != null){
+	if($.cookie("web-forum") != null && $.cookie("web-forum") != "" && $.cookie("web-forum") != undefined){
+		
 		window.location.replace("http://localhost:7653/rs.ftn.mr.webforum/home.html");
 	}
-    
 });
 
 var rootURL = "../rs.ftn.mr.webforum/rest/user/add";
