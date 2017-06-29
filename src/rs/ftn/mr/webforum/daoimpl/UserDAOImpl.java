@@ -159,6 +159,9 @@ public class UserDAOImpl implements UserDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		finally {
+			DbUtils.close(p);
+		}
 		
 		return 0;
 	}

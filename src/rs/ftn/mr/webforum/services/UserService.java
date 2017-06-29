@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javax.servlet.http.Cookie;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.CookieParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -117,7 +118,6 @@ public class UserService {
 	@POST
 	@Path("/cookie")
 	@Consumes({ MediaType.TEXT_PLAIN, MediaType.APPLICATION_XML})
-//    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getUserByCookie(String cookie) {	
 		User u;
@@ -138,6 +138,18 @@ public class UserService {
 		}
 	    
 		return response;
+	}
+	
+	@POST
+	@Consumes({ MediaType.TEXT_PLAIN, MediaType.APPLICATION_XML})
+	@Path("/deleteCookie")
+	public void deleteCookie(String value) {	
+		//todos
+		
+		CookieDao cookieDao = new CookieDaoImpl();
+		
+		cookieDao.delete(value);
+
 	}
 }
 

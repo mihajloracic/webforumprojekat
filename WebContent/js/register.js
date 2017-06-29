@@ -18,7 +18,7 @@ $(function() {
 
 $( document ).ready(function() {
 	if($.cookie("web-forum") != null && $.cookie("web-forum") != "" && $.cookie("web-forum") != undefined){		
-		window.location.replace("http://localhost:7653/rs.ftn.mr.webforum/home.html");
+		window.location.href = "http://localhost:7653/rs.ftn.mr.webforum/home.html";
 	}
 });
 
@@ -77,7 +77,7 @@ $(document).on('submit', '#login-form', function(e) {
 		data : registerformToJSON(username,ime,prezime,email,password,telefon),
 		success : function(data) {
 			$.cookie("web-forum", data);
-			window.location.replace("http://localhost:7653/rs.ftn.mr.webforum/home.html");
+			window.location.href = "http://localhost:7653/rs.ftn.mr.webforum/home.html";
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
 			alert("wrong username or password");

@@ -6,8 +6,8 @@ import rs.ftn.mr.webforum.entities.Podforum;
 import rs.ftn.mr.webforum.entities.User;
 
 public interface PodforumDao {
-	public User selectById(int podforumId) ;
-	public User selectByName(String podforumName) ;
+	public Podforum selectById(int podforumId) ;
+	public Podforum selectByName(String podforumName) ;
 	public List selectAll() ;
 	public void delete(int podforumId) ;
 	public void update(Podforum podforum) ;

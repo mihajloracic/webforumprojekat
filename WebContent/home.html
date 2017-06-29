@@ -1,75 +1,162 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta>
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/bootstrap.css" >
-<link rel="stylesheet" href="css/bootstrap-theme.css" >
+ <meta charset="UTF-8">
+<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/bootstrap-theme.css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script src="js/cookie.js"></script>
 <script type="text/javascript" src="js/home.js"></script>
 <script type="text/javascript" src="js/bootstrap-js.js"></script>
 </head>
 <body>
-	<nav class="navbar navbar-default">
-  <div class="container-fluid">
-      <ul class="nav navbar-nav">
-        <li><a id="user-name" href="#"></a></li>
-        <li><a id="addPodforum" href="#" data-toggle="modal" data-target="#myModal">Dodaj podforum</a></li>
-        <li><a id="user-looged-in" href="#">Prijava</a></li>
-		<li><a id="logout" href="#">Odjava</a></li>
-      </ul>
-      
-  </div><!-- /.container-fluid -->
-</nav>
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Dodavanje podforuma</h4>
-      </div>
-      <div class="modal-body">
-       <form>
-  <div class="form-group">
-    <label for="formGroupExampleInput">Naziv podforuma</label>
-    <input type="text" class="form-control" id="modalNaziv" placeholder="Naziv podforuma">
-  </div>
-  <div class="form-group">
-    <label for="formGroupExampleInput2">Opis podforuma</label>
-    <input type="text" class="form-control" id="modalOpis" placeholder="Opis podforuma">
-  </div>
-  <div class="form-group">
-    <label for="formGroupExampleInput2">Pravila</label>
-    <input type="text" class="form-control" id="modalPravila" placeholder="Pravila">
-  </div>
-</form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
-        <button id="buttonDodajPodforum" type="button" class="btn btn-primary" data-dismiss="modal">Dodaj podforum</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="container">
-	<div class="jumbotron">
-    <h1>Web forum</h1> 
-    
-  </div>
-  
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-  <ul  class="nav navbar-nav" id="podforum-holder">
-  	 <li><a href="#">Primer</a></li>
-  	<li><a href="#">Primer</a></li>
-  	<li><a href="#">Primer</a></li>
-  </ul>
-  </div>
-  </nav>
-  
-</div>
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span> 
+	      </button>
+	       <a class="navbar-brand" href="/rs.ftn.mr.webforum/home.html">Početna</a>
+	    </div>
+	    <div class="collapse navbar-collapse" id="myNavbar">
+	      <ul class="nav navbar-nav">
+				<li><a id="user-name" href="#"></a></li>
+				<li><a id="addPodforum" href="#" data-toggle="modal"
+					data-target="#myModal">Dodaj podforum</a></li>
+				<li><a id="user-looged-in" href="#">Prijava</a></li>
+	      </ul>
+	      <ul class="nav navbar-nav navbar-right">
+    				<li><a id="logout" href="#">Odjava</a></li>
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Dodavanje podforuma</h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label for="formGroupExampleInput">Naziv podforuma</label> <input
+								type="text" class="form-control" id="modalNaziv"
+								placeholder="Naziv podforuma" required>
+						</div>
+						<div class="form-group">
+							<label for="formGroupExampleInput2">Opis podforuma</label>
+							<textarea rows="3" type="text" class="form-control"
+								id="modalOpis" placeholder="Opis podforuma" required></textarea>
+						</div>
+						<div class="form-group">
+							<label for="formGroupExampleInput2">Pravila</label>
+							<textarea rows="3" type="text" class="form-control"
+								id="modalPravila" placeholder="Pravila" required></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+					<button id="buttonDodajPodforum" type="submit"
+						class="btn btn-primary" data-dismiss="modal">Dodaj
+						podforum</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="temaModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Dodavanje teme</h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label for="formGroupExampleInput">Naslov teme</label> <input
+								type="text" class="form-control" id="temaNaziv"
+								placeholder="Naziv teme" required>
+						</div>
+						<div class="form-group">
+						  <label for="sel1">Tip teme:</label>
+						  <select class="form-control" id="tipSelect">
+						    <option>Tekst</option>
+						    <option>Link</option>
+						    <option>Slika</option>
+						  </select>
+						</div>
+						<div class="form-group formpost" id="formTekst">
+							<label for="formGroupExampleInput2">Tekst</label>
+							<textarea rows="3" type="text" class="form-control"
+								id="postOpis" placeholder="Tekst za post" required></textarea>
+						</div>
+						<div class="form-group formpost" id="formLink">
+							<label for="formGroupExampleInput2">Link</label>
+							<textarea rows="3" type="text" class="form-control"
+								id="postLik" placeholder="Link za post" required></textarea>
+						</div>
+						<div class="form-group formpost" id="formSlika">
+							<label for="formGroupExampleInput2">Slika</label>
+							<input type="file" class="form-control"
+								id="imgInp" placeholder="Link za post" required>
+							<img class="img-responsive"  id="blah" src="#" alt="your image" />
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+					<button id="buttonDodajPost" type="submit"
+						class="btn btn-primary" data-dismiss="modal">Dodaj
+						post</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="container">
+		<div class="jumbotron">
+			<h1 class="text-center">Web forum</h1>
+
+		</div>
+
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<ul class="nav navbar-nav" id="podforum-holder">
+				</ul>
+			</div>
+		</nav>
+		<div class="container podforum-holder" style="cursor: pointer;">
+	    
+		<h2 id="podforum-naslov" class="text-center" ></h2>
+		<button data-toggle="modal"
+					data-target="#temaModal" type="button" class="btn btn-primary pull-right">+ Dodaj temu</button>
+		<div id="podforum-info-holder">
+		<h3 id="podforum-naslov-opis">Opis</h3>
+		<p id="podforum-opis"></p>
+		<h3 id="podforum-naslov-pravila">Pravila</h3>
+		<p id="podforum-pravila"></p>
+		</div>
+		</div>
+	</div>
 </body>
 </html>

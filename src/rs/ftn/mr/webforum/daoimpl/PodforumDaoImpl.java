@@ -58,6 +58,7 @@ public class PodforumDaoImpl implements PodforumDao{
 			fillUserFromResultSet(podforum, rs);
 			list.add(podforum);
 		}
+		
 
 		return list;
 	}
@@ -105,7 +106,9 @@ public class PodforumDaoImpl implements PodforumDao{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		finally {
+			DbUtils.close(p);
+		}
 		return 0;
 	}
 

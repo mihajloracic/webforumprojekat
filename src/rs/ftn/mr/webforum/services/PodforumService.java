@@ -31,9 +31,14 @@ public class PodforumService {
 		PodforumDao podforumDao = new PodforumDaoImpl();
 		CookieDao cookieDao = new CookieDaoImpl();
 		int userId = cookieDao.getById(value);
+		if(userId == -1){
+			response = Response.status(405).build();
+		}
+		UserDAO userDao = new UserDAOImpl();
 		podforum.setOdgovorniModerator(userId);
-		if(true){//dodati proveru sesije
-				podforumDao.addNew(podforum);	
+		String uloga = userDao.selectById(userId).getUloga();
+		if(uloga.equals("admin") || uloga.equals("moderator")){//provera uloge preko sesije
+			   podforumDao.addNew(podforum);	
 			   response = Response.status(200).build();
 		}else{
 			response = Response.status(405).build();

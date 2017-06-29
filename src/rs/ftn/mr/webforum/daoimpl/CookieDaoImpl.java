@@ -26,12 +26,16 @@ public class CookieDaoImpl implements CookieDao {
 			p.setInt(2, userId);
 			p.setDate(3, new Date(utilDate.getTime() + 36000000));
 			p.execute();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		finally {
+			DbUtils.close(p);
 		}
 	}
 
@@ -54,6 +58,28 @@ public class CookieDaoImpl implements CookieDao {
 		}
 		finally {
 			DbUtils.close(rs, p);
+		}
+		return 0;
+	}
+
+	@Override
+	public int delete(String cookie) {
+		// TODO Auto-generated method stub
+		String sql = "delete from user_cookie where cookie=?";
+    	PreparedStatement p = null;
+		try {
+			p = DbConnection.getConnection()
+						.prepareStatement(sql);
+			p.setString(1, cookie);
+			p.executeQuery();			 
+		} catch (SQLException e) {
+			System.out.println(e.toString());
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+		}
+		finally {
+			DbUtils.close(p);
 		}
 		return 0;
 	}
