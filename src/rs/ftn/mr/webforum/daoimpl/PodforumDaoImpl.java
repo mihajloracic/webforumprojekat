@@ -24,8 +24,27 @@ public class PodforumDaoImpl implements PodforumDao{
 
 	@Override
 	public Podforum selectByName(String podforumName) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select * from podforum where naziv = ?";
+    	PreparedStatement p = null;
+		ResultSet rs = null;
+		try {
+			p = DbConnection.getConnection()
+						.prepareStatement(sql);
+			p.setString(1, podforumName);
+			rs = p.executeQuery();
+			Podforum podforum = new Podforum();
+			fillUserFromResultSet(podforum, rs);
+			return podforum;
+		} catch (SQLException e) {
+			System.out.println(e.toString());
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+		}
+		finally {
+			DbUtils.close(rs, p);
+		}
+    	return null;
 	}
 
 	@Override

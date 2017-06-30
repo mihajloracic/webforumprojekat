@@ -17,9 +17,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import rs.ftn.mr.webforum.dao.CookieDao;
+import rs.ftn.mr.webforum.dao.PodforumDao;
 import rs.ftn.mr.webforum.dao.TemaDao;
 import rs.ftn.mr.webforum.dao.UserDAO;
 import rs.ftn.mr.webforum.daoimpl.CookieDaoImpl;
+import rs.ftn.mr.webforum.daoimpl.PodforumDaoImpl;
 import rs.ftn.mr.webforum.daoimpl.TemaDaoImpl;
 import rs.ftn.mr.webforum.daoimpl.UserDAOImpl;
 import rs.ftn.mr.webforum.entities.Tema;
@@ -27,7 +29,7 @@ import rs.ftn.mr.webforum.entities.User;
  
  
 @Path("/post")
-public class PostService {
+public class TemaService {
  
     @POST
     @Path("/upload")
@@ -53,6 +55,7 @@ public class PostService {
         }
         return Response.status(200).entity(imageId).build();
     }
+    
     @POST
 	@Path("/add")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -64,6 +67,10 @@ public class PostService {
 		
 		CookieDao cookieDao = new CookieDaoImpl();
 		
+		PodforumDao podforumDao = new PodforumDaoImpl();
+		
+		int podforumId = podforumDao.selectByName(tema.getNazivPodforum()).getId();
+		tema.setId_podforum(podforumId);
 		int userId = cookieDao.getById(value);
 		tema.setAutor(userId);
 		if(userId != 0){
@@ -72,6 +79,27 @@ public class PostService {
 		}else{
 			response = Response.status(401).build();
 		}
+		return response;
+	}
+	@POST
+	@Path("/teme")
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.TEXT_PLAIN, MediaType.APPLICATION_XML})
+	public Response findAll(String nazivPodforum) {	
+		
+		Response response;
+		
+		TemaDao temaDao = new TemaDaoImpl();
+		
+		PodforumDao podforumDao = new PodforumDaoImpl();
+		
+		int podforumId = podforumDao.selectByName(nazivPodforum).getId();
+		
+	    response = Response.
+	    		status(200)
+	    		.entity(temaDao.selectAll(podforumId))
+	    		.build();
+	
 		return response;
 	}
    

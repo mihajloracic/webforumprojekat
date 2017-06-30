@@ -9,7 +9,7 @@ import rs.ftn.mr.webforum.entities.User;
 public interface TemaDao {
 	public Tema selectById(int id) ;
 	public Tema selectByName(String naziv) ;
-	public List selectAll() ;
+	public List selectAll(int podforumId) ;
 	public void delete(int id) ;
 	public void update(Tema tema) ;
 	public int addNew(Tema tema);

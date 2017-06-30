@@ -2,12 +2,16 @@ package rs.ftn.mr.webforum.daoimpl;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import rs.ftn.mr.webforum.dao.TemaDao;
 import rs.ftn.mr.webforum.db.DbConnection;
+import rs.ftn.mr.webforum.entities.Podforum;
 import rs.ftn.mr.webforum.entities.Tema;
+import rs.ftn.mr.webforum.entities.User;
 import rs.ftn.mr.webforum.util.DbUtils;
 
 public class TemaDaoImpl implements TemaDao{
@@ -23,11 +27,42 @@ public class TemaDaoImpl implements TemaDao{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	protected List processSelectAll(ResultSet rs) throws SQLException {
+		List list = new ArrayList();
 
+		while (rs.next()) {
+			Tema tema = new Tema();
+			fillTemaFromResultSet(tema, rs);
+			list.add(tema);
+		}
+
+		return list;
+	}
+
+	
 	@Override
-	public List selectAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List selectAll(int podforumId) {
+		String sql = "select * from tema where id_podforum = ?";
+    	PreparedStatement p = null;
+		ResultSet rs = null;
+		try {
+			p = DbConnection.getConnection()
+						.prepareStatement(sql);
+			p.setInt(1, podforumId);
+			rs = p.executeQuery();
+
+			return this.processSelectAll(rs);
+		} catch (SQLException e) {
+			System.out.println(e.toString());
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+		}
+		finally {
+			DbUtils.close(rs, p);
+		}
+    	return null;
 	}
 
 	@Override
@@ -39,6 +74,17 @@ public class TemaDaoImpl implements TemaDao{
 	@Override
 	public void update(Tema tema) {
 		// TODO Auto-generated method stub
+	}
+	private void fillTemaFromResultSet(Tema tema, ResultSet rs) throws SQLException {
+		tema.setId(rs.getInt("id"));
+		tema.setId_podforum(rs.getInt("id_podforum"));
+		tema.setNaslov(rs.getString("naslov"));
+		tema.setTekst(rs.getString("tekst"));
+		tema.setLink(rs.getString("link"));
+		tema.setSlika(rs.getString("slika"));
+		tema.setAutor(rs.getInt("autor"));
+		tema.setDatum_kreiranja(rs.getDate("datum_kreiranja"));
+		tema.setTip(rs.getString("tip"));
 	}
 
 	@Override

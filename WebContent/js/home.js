@@ -14,9 +14,9 @@ $(document).ready(function() {
                 async: false,
                 complete: function(data) {
                     console.log(data.responseText);
-                    var naslov = $(this).find("#temaNaziv").val();
-                	var tekst = $(this).find("#postOpis").val();
-                	var link = $(this).find("#postLik").val();
+                    var naslov = $("#temaNaziv").val();
+                	var tekst = $("#postOpis").val();
+                	var link = $("#postLik").val();
                 	var slika = data.responseText;
                 	var tip;
                 	$( "#tipSelect option:selected" ).each(function() {
@@ -137,7 +137,22 @@ $(document).ready(function() {
 			}
 		});
 	})
-	
+	$.ajax({
+		method : 'POST',
+		url : "../rs.ftn.mr.webforum/rest/post/teme",
+		contentType : 'text/plain',
+		data: getUrlVars()["name"],
+		success : function(data) {
+			data.forEach(function(element) {
+				$( "#posts" ).append( '<a href="#" class="list-group-item list-group-item-action">'+element.naslov+'</a>' );
+			});
+			
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			console.log(textStatus);
+			console.log(errorThrown);
+		}
+	});
 });
 function podforumFormToJSON(naziv,opis,spisakPravila) {
 	return JSON.stringify({
