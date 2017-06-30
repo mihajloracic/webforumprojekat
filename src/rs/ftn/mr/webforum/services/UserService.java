@@ -52,7 +52,6 @@ public class UserService {
 		UserDAO userDAO = new UserDAOImpl();
 		user = userDAO.selectById(id);
 		return user;
-
 	}
 
 	@GET
@@ -131,6 +130,29 @@ public class UserService {
 		UserDAO userDAO = new UserDAOImpl();
 		CookieDao cookieDao = new CookieDaoImpl();
 		u = userDAO.selectById(cookieDao.getById(cookie));
+		if(u != null){
+			response = Response.status(200)
+		    		.entity(u)
+		    		.build();
+			
+		}else{
+			response = Response.status(404)
+		    		.build();
+		}
+	    
+		return response;
+	}
+	@POST
+	@Path("/getUserById")
+	@Consumes({ MediaType.TEXT_PLAIN, MediaType.APPLICATION_XML})
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getUserById(String id) {	
+		User u;
+		
+		Response response = null;
+		
+		UserDAO userDAO = new UserDAOImpl();
+		u = userDAO.selectById(Integer.parseInt(id));
 		if(u != null){
 			response = Response.status(200)
 		    		.entity(u)

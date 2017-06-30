@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import rs.ftn.mr.webforum.dao.LikeTemaDao;
 import rs.ftn.mr.webforum.dao.TemaDao;
 import rs.ftn.mr.webforum.db.DbConnection;
 import rs.ftn.mr.webforum.entities.Podforum;
@@ -18,8 +19,28 @@ public class TemaDaoImpl implements TemaDao{
 
 	@Override
 	public Tema selectById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select * from tema where id = ?";
+    	PreparedStatement p = null;
+		ResultSet rs = null;
+		try {
+			p = DbConnection.getConnection()
+						.prepareStatement(sql);
+			p.setInt(1, id);
+			rs = p.executeQuery();
+			Tema t = new Tema();
+			fillTemaFromResultSet(t, rs);
+			return t;
+			
+		} catch (SQLException e) {
+			System.out.println(e.toString());
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+		}
+		finally {
+			DbUtils.close(rs, p);
+		}
+    	return null;
 	}
 
 	@Override
@@ -40,6 +61,7 @@ public class TemaDaoImpl implements TemaDao{
 		return list;
 	}
 
+	
 	
 	@Override
 	public List selectAll(int podforumId) {
@@ -85,6 +107,9 @@ public class TemaDaoImpl implements TemaDao{
 		tema.setAutor(rs.getInt("autor"));
 		tema.setDatum_kreiranja(rs.getDate("datum_kreiranja"));
 		tema.setTip(rs.getString("tip"));
+		LikeTemaDao likeTemaDao = new LikeTemaDaoImpl();
+		tema.setBrojLike(likeTemaDao.getTemaLikeCount(tema.getId()));
+		tema.setBrojDislike(likeTemaDao.getTemaDislikeCount(tema));
 	}
 
 	@Override

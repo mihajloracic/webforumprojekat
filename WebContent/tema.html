@@ -7,25 +7,41 @@
 <link rel="stylesheet" href="css/bootstrap-theme.css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script src="js/cookie.js"></script>
+<script src="js/tema.js"></script>
 <script type="text/javascript" src="js/bootstrap-js.js"></script>
 </head>
 <body>
 	<div class="container jumbotron">
-		<h1 id="naslov" class="text-center"> bo ti sve aaaa</h1>
-		<p id="username">  Kreirao: stefko021</p>
-		<p id="createdOn"> 21.5.1389 21:06</p>
+		<h1 id="naslov" class="text-center"></h1>
+		<p>  Kreirao: <span id="user"> </span></p>
+		<p id="createdOn"></p>
+	    <p id="brojLike">Broj lajkova: </p>
+		
+		<p id="brojDislike">Broj dislajkova: </p>
+		<button class="btn btn-primary pull-right" id="likeTemaAdd" > Like </button>
+	    <button class="btn btn-default pull-right" id="dislikeTemaAdd" > Dislike </button>
 	</div>
 	<div class="container">
 	<div class="row">
 	<div class="col-sm-3"></div>
 	<div class="col-sm-6">
 			<img id="Slika" src="images/img.jpg" class="img-responsive img-rounded content">
-			<p id="Tekst" class="text-center content">Tekstic za opis mali popis</p>
-			<a id="Link" href="#" class="content">www.google.com</a>
+			<p id="Tekst"  class="text-justify content"></p>
+			<a id="Link" href="#" class="content"></a>
 	<div class="col-sm-3"></div>
 	</div>
 	</div>
+		<form class="form-inline">
+  <div class="form-group">
+   <input type="text" class="form-control" id="textKomentar" placeholder="Komentar...">
+  	
+  </div>
+  <div class="form-group">
+      <button class="btn btn-primary pull-right" id="dodajKomentar" > Dodaj komentar </button>
+  </div>
+  </form>
+
 	</div>
-	
+
 </body>
 </html>

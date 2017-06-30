@@ -2,6 +2,8 @@ package rs.ftn.mr.webforum.entities;
 
 import java.sql.Date;
 
+import rs.ftn.mr.webforum.dao.LikeTemaDao;
+
 public class Tema {
 	int id;
 	int id_podforum;
@@ -12,7 +14,21 @@ public class Tema {
 	String link;
 	Date datum_kreiranja;
 	String slika;
-
+	int brojLike;
+	int brojDislike;
+	
+	public int getBrojLike() {
+		return brojLike;
+	}
+	public void setBrojLike(int brojLike) {
+		this.brojLike = brojLike;
+	}
+	public int getBrojDislike() {
+		return brojDislike;
+	}
+	public void setBrojDislike(int brojDislike) {
+		this.brojDislike = brojDislike;
+	}
 	public int getId() {
 		return id;
 	}

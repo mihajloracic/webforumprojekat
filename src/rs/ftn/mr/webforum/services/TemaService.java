@@ -17,13 +17,16 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import rs.ftn.mr.webforum.dao.CookieDao;
+import rs.ftn.mr.webforum.dao.LikeTemaDao;
 import rs.ftn.mr.webforum.dao.PodforumDao;
 import rs.ftn.mr.webforum.dao.TemaDao;
 import rs.ftn.mr.webforum.dao.UserDAO;
 import rs.ftn.mr.webforum.daoimpl.CookieDaoImpl;
+import rs.ftn.mr.webforum.daoimpl.LikeTemaDaoImpl;
 import rs.ftn.mr.webforum.daoimpl.PodforumDaoImpl;
 import rs.ftn.mr.webforum.daoimpl.TemaDaoImpl;
 import rs.ftn.mr.webforum.daoimpl.UserDAOImpl;
+import rs.ftn.mr.webforum.entities.LikeTema;
 import rs.ftn.mr.webforum.entities.Tema;
 import rs.ftn.mr.webforum.entities.User;
  
@@ -101,6 +104,42 @@ public class TemaService {
 	    		.build();
 	
 		return response;
+	}
+	@POST
+	@Path("/temaById")
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.TEXT_PLAIN, MediaType.APPLICATION_XML})
+	public Response findById(String idTema) {	
+		Response response;
+		TemaDao temaDao = new TemaDaoImpl();
+		idTema = idTema.replaceAll("#", "");
+		int idTeme = Integer.parseInt(idTema);
+		Tema tema = temaDao.selectById(idTeme);
+		
+	    response = Response.
+	    		status(200)
+	    		.entity(tema)
+	    		.build();
+	
+		return response;
+	}
+	@POST
+	@Path("/like")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public Response addLikeTema(LikeTema likeTema,@CookieParam("web-forum") String value) {	
+		Response response;
+		CookieDao cookieDao = new CookieDaoImpl();
+	    LikeTemaDao likeTemaDao = new LikeTemaDaoImpl();
+		int userId = cookieDao.getById(value);
+		likeTema.setIdUser(userId);
+		likeTemaDao.addNew(likeTema);
+		if(userId != 0){
+			response = Response.status(200).build();
+		}else{
+			response = Response.status(401).build();
+		}
+		return response;
+	
 	}
    
 }
