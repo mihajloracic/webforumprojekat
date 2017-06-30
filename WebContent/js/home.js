@@ -29,14 +29,7 @@ $(document).ready(function() {
                 		dataType : "",
                 		data : temaformToJSON(naslov,tip,tekst,link,slika,getUrlVars()["name"]),
                 		success : function(data) {
-                			alert("Uspesno ste se registrovali");
-                	    	$("#login-form").delay(100).fadeIn(100);
-                	 		$("#register-form").fadeOut(100);
-                			$('#register-form-link').removeClass('active');
-                			$(this).addClass('active');
-                			e.preventDefault();
-                			$(this).find("#username").val(ime);
-                			$(this).find("#password").val(password);
+                			
                 		},
                 		error : function(XMLHttpRequest, textStatus, errorThrown) {
                 			console.log(temaformToJSON(naslov,tip,tekst,link,slika,getUrlVars()["name"]));
@@ -144,7 +137,7 @@ $(document).ready(function() {
 		data: getUrlVars()["name"],
 		success : function(data) {
 			data.forEach(function(element) {
-				$( "#posts" ).append( '<a href="#" class="list-group-item list-group-item-action">'+element.naslov+'</a>' );
+				$( "#posts" ).append( '<a href="tema.html?id=' + element.id + '" class="list-group-item list-group-item-action">'+element.naslov+'</a>' );
 			});
 			
 		},
