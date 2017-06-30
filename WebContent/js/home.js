@@ -1,4 +1,57 @@
 $(document).ready(function() {
+	$(document).on("submit","#slanjeSlike512",function(e){
+        e.preventDefault();
+        var data = new FormData(this);
+       
+        var file = $('#pictureLink')[0].files[0];
+         $.ajax({
+                url : "../rs.ftn.mr.webforum/rest/post/upload",
+                type : "POST",
+                contentType : "multipart/form-data",
+                dataType: "JSON",
+                data: file,
+                processData: false,
+                async: false,
+                complete: function(data) {
+                    console.log(data.responseText);
+                    var naslov = $(this).find("#temaNaziv").val();
+                	var tekst = $(this).find("#postOpis").val();
+                	var link = $(this).find("#postLik").val();
+                	var slika = data.responseText;
+                	var tip;
+                	$( "#tipSelect option:selected" ).each(function() {
+                	  tip = $( this ).text();
+                	});
+                	$.ajax({
+                		method : 'POST',
+                		url : "/rs.ftn.mr.webforum/rest/post/add",
+                		contentType : 'application/json',
+                		dataType : "",
+                		data : temaformToJSON(naslov,tip,tekst,link,slika,getUrlVars()["name"]),
+                		success : function(data) {
+                			alert("Uspesno ste se registrovali");
+                	    	$("#login-form").delay(100).fadeIn(100);
+                	 		$("#register-form").fadeOut(100);
+                			$('#register-form-link').removeClass('active');
+                			$(this).addClass('active');
+                			e.preventDefault();
+                			$(this).find("#username").val(ime);
+                			$(this).find("#password").val(password);
+                		},
+                		error : function(XMLHttpRequest, textStatus, errorThrown) {
+                			console.log(temaformToJSON(naslov,tip,tekst,link,slika,getUrlVars()["name"]));
+                		}
+                	});
+                    
+                    
+                    window.location.href = window.location.href;
+                }
+         });
+       
+    });
+	$('#buttonDodajPost').click(function(){
+		$('#slanjeSlike512').submit();
+	}); 
 	$("#formLink").hide();
 	$("#formSlika").hide();
 	$( "#tipSelect" ).change(function() {
@@ -106,7 +159,10 @@ function prikaziPostove(){
 			var selected;
 			if(getUrlVars()["name"]){
 				selected = getUrlVars()["name"];
+				
 			}else{
+				window.location.href = "/rs.ftn.mr.webforum/home.html?name=" + data[0].naziv;
+				
 				selected = data[0].naziv;
 			}
 			data.forEach(function(element) {
@@ -134,7 +190,8 @@ function prikaziPostove(){
 	$("#imgInp").change(function(){
 	    readURL(this);
 	});
-l
+	
+
 }
 function getPodforum(){
 	var id = getUrlVars()["locationId"];
@@ -163,4 +220,17 @@ function readURL(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
-
+function temaformToJSON(naslov,tip,tekst,link,slika, nazivPodforum) {
+	return JSON.stringify({
+		"id" : null,
+		"id_podforum" : null,
+		"naslov" : naslov,
+		"tip" : tip,
+		"autor" : null,
+		"tekst" : tekst,
+	    "link": link,
+	    "datum_kreiranja": null,
+	    "slika": slika,
+	    "nazivPodforum" : nazivPodforum
+	});
+}

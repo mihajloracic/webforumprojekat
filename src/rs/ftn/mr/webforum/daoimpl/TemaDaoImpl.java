@@ -44,7 +44,7 @@ public class TemaDaoImpl implements TemaDao{
 	@Override
 	public int addNew(Tema tema) {
 		// TODO Auto-generated method stub
-		String sql = "INSERT INTO user (id_podforum,naslov,tip,autor,tekst,slika,link,datum_kreiranja)"
+		String sql = "INSERT INTO tema (id_podforum,naslov,tip,autor,tekst,slika,link,datum_kreiranja)"
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement p = null;
 		try {
@@ -56,16 +56,14 @@ public class TemaDaoImpl implements TemaDao{
 			p.setString(3, tema.getTip());
 			p.setInt(4, tema.getAutor());
 			p.setString(5, tema.getTekst());
-			p.setString(6, null); // to do dodat sliku
+			p.setString(6, tema.getSlika()); // to do dodat sliku
 			p.setString(7, tema.getLink());
 			java.util.Date utilDate = new java.util.Date();
 			p.setDate(8, new Date(utilDate.getTime()));
 			p.execute();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally {

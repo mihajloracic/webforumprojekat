@@ -54,7 +54,7 @@ $(document).on('submit', '#register-form', function(e) {
 			$(this).find("#password").val(password);
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("User name already taken");
+			
 		}
 	});
 });

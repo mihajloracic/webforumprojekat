@@ -11,6 +11,8 @@ public class Tema {
 	String tekst;
 	String link;
 	Date datum_kreiranja;
+	String slika;
+
 	public int getId() {
 		return id;
 	}
@@ -44,6 +46,7 @@ public class Tema {
 	public String getTekst() {
 		return tekst;
 	}
+	String nazivPodforum;
 	public void setTekst(String tekst) {
 		this.tekst = tekst;
 	}
@@ -59,6 +62,17 @@ public class Tema {
 	public void setDatum_kreiranja(Date datum_kreiranja) {
 		this.datum_kreiranja = datum_kreiranja;
 	}
+	public String getSlika() {
+		return slika;
+	}
+	public void setSlika(String slika) {
+		this.slika = slika;
+	}
+	public String getNazivPodforum() {
+		return nazivPodforum;
+	}
+	public void setNazivPodforum(String nazivPodforum) {
+		this.nazivPodforum = nazivPodforum;
+	}
 	
-
 }

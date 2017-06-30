@@ -17,13 +17,13 @@ import rs.ftn.mr.webforum.util.DbUtils;
 public class PodforumDaoImpl implements PodforumDao{
 
 	@Override
-	public User selectById(int podforumId) {
+	public Podforum selectById(int podforumId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public User selectByName(String podforumName) {
+	public Podforum selectByName(String podforumName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
