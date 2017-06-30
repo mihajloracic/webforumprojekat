@@ -176,18 +176,18 @@ function prikaziPostove(){
 				selected = getUrlVars()["name"];
 				
 			}else{
-				window.location.href = "/rs.ftn.mr.webforum/home.html?name=" + data[0].naziv;
+				window.location.href = "/rs.ftn.mr.webforum/home.html?name=" + data[0].id;
 				
-				selected = data[0].naziv;
+				selected = data[0].id;
 			}
 			data.forEach(function(element) {
-				if(selected == element.naziv){
-					$( "#podforum-holder" ).append( '<li class="active"><a href=" /rs.ftn.mr.webforum/home.html?name=' + element.naziv +'">' + element.naziv + "</a></li>" );
+				if(selected == element.id){
+					$( "#podforum-holder" ).append( '<li class="active"><a href=" /rs.ftn.mr.webforum/home.html?name=' + element.id +'">' + element.naziv + "</a></li>" );
 					$("#podforum-naslov").append(element.naziv);
 					$("#podforum-opis").append(element.opis);
 					$("#podforum-pravila").append(element.spisakPravila);
 				}else{
-					$( "#podforum-holder" ).append( '<li><a href=" /rs.ftn.mr.webforum/home.html?name=' + element.naziv +'">' + element.naziv + "</a></li>" );
+					$( "#podforum-holder" ).append( '<li><a href=" /rs.ftn.mr.webforum/home.html?name=' + element.id +'">' + element.naziv + "</a></li>" );
 					
 				}
 			    
@@ -205,7 +205,13 @@ function prikaziPostove(){
 	$("#imgInp").change(function(){
 	    readURL(this);
 	});
-	
+	$("#otvaraceForme").click(function(){
+		if($.cookie("web-forum") != null && $.cookie("web-forum") != "" && $.cookie("web-forum") != undefined){
+
+		}else{
+			window.location.href = "register.html";
+		}
+	});
 
 }
 function getPodforum(){

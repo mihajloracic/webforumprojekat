@@ -68,8 +68,8 @@ public class TemaService {
 		CookieDao cookieDao = new CookieDaoImpl();
 		
 		PodforumDao podforumDao = new PodforumDaoImpl();
-		
-		int podforumId = podforumDao.selectByName(tema.getNazivPodforum()).getId();
+		tema.getNazivPodforum().replaceAll("#", "");
+		int podforumId = Integer.parseInt(tema.getNazivPodforum());
 		tema.setId_podforum(podforumId);
 		int userId = cookieDao.getById(value);
 		tema.setAutor(userId);
@@ -92,8 +92,8 @@ public class TemaService {
 		TemaDao temaDao = new TemaDaoImpl();
 		
 		PodforumDao podforumDao = new PodforumDaoImpl();
-		
-		int podforumId = podforumDao.selectByName(nazivPodforum).getId();
+		nazivPodforum.replace("#", "");
+		int podforumId = Integer.parseInt(nazivPodforum);
 		
 	    response = Response.
 	    		status(200)
