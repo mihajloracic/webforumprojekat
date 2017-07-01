@@ -126,15 +126,20 @@ public class TemaService {
 	@POST
 	@Path("/like")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({ MediaType.APPLICATION_JSON })
 	public Response addLikeTema(LikeTema likeTema,@CookieParam("web-forum") String value) {	
 		Response response;
 		CookieDao cookieDao = new CookieDaoImpl();
 	    LikeTemaDao likeTemaDao = new LikeTemaDaoImpl();
+	    TemaDao temaDao = new TemaDaoImpl();
 		int userId = cookieDao.getById(value);
 		likeTema.setIdUser(userId);
 		likeTemaDao.addNew(likeTema);
 		if(userId != 0){
-			response = Response.status(200).build();
+			response = Response
+					.status(200)
+					.entity(temaDao.selectById(likeTema.getIdTema()))
+					.build();
 		}else{
 			response = Response.status(401).build();
 		}

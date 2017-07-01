@@ -1,5 +1,9 @@
 $( document ).ready(function() {
 	updateTema();
+	$(".likeKomentar").click(function(){
+		var id = $(this).parent().parent().attr("id");
+		console.log(id);
+	});
 	$.ajax({
 		method : 'POST',
 		url : "../rs.ftn.mr.webforum/rest/komentar/getComments",
@@ -23,8 +27,10 @@ $( document ).ready(function() {
 			url : "/rs.ftn.mr.webforum/rest/post/like",
 			contentType : 'application/json',
 			data :  formLikeToJSON(true),
-			success : function() {
-				window.location.href = window.location.href; 
+			success : function(temaInfo) {
+				console.log(temaInfo);
+				$("#brojLike").text("Like: " + temaInfo.brojLike);
+				$("#brojDislike").text("Dislike: " + temaInfo.brojDislike);
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown) {
 				console.log(textStatus);
@@ -39,8 +45,10 @@ $( document ).ready(function() {
 			url : "/rs.ftn.mr.webforum/rest/post/like",
 			contentType : 'application/json',
 			data :  formLikeToJSON(false),
-			success : function() {
-				window.location.href = window.location.href;
+			success : function(temaInfo) {
+				console.log(temaInfo);
+				$("#brojLike").text("Like: " + temaInfo.brojLike);
+				$("#brojDislike").text("Dislike: " + temaInfo.brojDislike);
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown) {
 				console.log(textStatus);
@@ -54,6 +62,9 @@ $( document ).ready(function() {
 		if($.cookie("web-forum") != null && $.cookie("web-forum") != "" && $.cookie("web-forum") != undefined){		
 		}else{
 			window.location.href = "register.html";			
+		}
+		if($("#textKomentar").val() == ""){
+			return;
 		}
 		
 		$.ajax({
@@ -147,7 +158,7 @@ function formLikeToJSON(like) {
 
 function addComment(comment){
 	console.log(comment);
-	text = '<div class="row" id="komentar' + comment.id + '"><div class="col-sm-5"> <a href="#" class="textKomentara"></a> </div> <div class="col-sm-1"> <p class="izmenjen"></p> </div> <div class="col-sm-1">  <div class="col-sm-1"> <a class="izmeni" href="#">izmeni</a> </div> <div class="col-sm-1"> <button class="btn btn-default likeKomentar">Like</button> </div> <div class="col-sm-1"> <button class="btn btn-default dislikeKomentar">Dislike</button> </div> <div class="col-sm-2 "> <p class="brojLike"></p> </div> </div>'
+	text = '<div class="row" id="komentar' + comment.id + '"> <div class="col-sm-5"> <a href="#" class="textKomentara"></a> </div> <div class="col-sm-1"> <p class="izmenjen"></p> </div> <div class="col-sm-2 "> <p class="brojLike"></p> </div> <div class="col-sm-1"> <button class="btn btn-default dislikeKomentar">Dislike</button> </div> <div class="col-sm-1"> <button class="btn btn-default likeKomentar">Like</button> </div> </div>'
 	$(".commentContainer").append(text).val();
 	var selector = "#komentar" + comment.id + " .textKomentara";
 
@@ -164,3 +175,7 @@ function addComment(comment){
 	console.log($("#komentar" + comment.id));
 
 }
+$(".likeKomentar").click(function(){
+	var id = $(this).parent().parent().attr("id");
+	console.log(id);
+});
