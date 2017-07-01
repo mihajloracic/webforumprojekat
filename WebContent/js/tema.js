@@ -1,9 +1,54 @@
 $( document ).ready(function() {
-	updateTema();
-	$(".likeKomentar").click(function(){
+
+	$(document).on('click','.likeKomentar', function(){
 		var id = $(this).parent().parent().attr("id");
-		console.log(id);
+		var idCont = id;
+		id = id.replace("komentar","");
+		$.ajax({
+			method : 'POST',
+			url : "../rs.ftn.mr.webforum/rest/komentar/like",
+			contentType : 'application/json',
+			data: JSON.stringify({
+				"idKomentar" : id,
+				"like" : true
+			}),
+			success : function(data) {
+				console.log(data)
+				$("#" + idCont).find(".brojLike").text("like: " + data.brojLike);
+				$("#" + idCont).find(".brojLike").text("like: " + data.brojLike + " dislike: " + data.brojDislike)
+
+			},
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		});
 	});
+	$(document).on('click','.dislikeKomentar', function(){
+		var id = $(this).parent().parent().attr("id");
+		var idCont = id;
+		id = id.replace("komentar","");
+		$.ajax({
+			method : 'POST',
+			url : "../rs.ftn.mr.webforum/rest/komentar/like",
+			contentType : 'application/json',
+			data: JSON.stringify({
+				"idKomentar" : id,
+				"like" : false
+			}),
+			success : function(data) {
+				console.log(data)
+				$("#" + idCont).find(".brojLike").text("like: " + data.brojLike);
+				$("#" + idCont).find(".brojLike").text("like: " + data.brojLike + " dislike: " + data.brojDislike)
+
+			},
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		});
+	});
+
 	$.ajax({
 		method : 'POST',
 		url : "../rs.ftn.mr.webforum/rest/komentar/getComments",
@@ -72,8 +117,9 @@ $( document ).ready(function() {
 			url : "/rs.ftn.mr.webforum/rest/komentar/add",
 			contentType : 'application/json',
 			data : formToJSON($("#textKomentar").val()),
-			success : function() {
-				window.location.href = window.location.href;
+			success : function(data) {
+				addComment(data)
+				$("#textKomentar").val("")
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown) {
 				console.log(textStatus);
@@ -81,7 +127,7 @@ $( document ).ready(function() {
 			}
 		});
 	});
-	
+	updateTema();
 });
 function updateTema(){
 	$(".content").hide();
@@ -171,11 +217,6 @@ function addComment(comment){
 		$("#komentar" + comment.id).find(".textKomentara").append(comment.tekst_komentar);
 		$("#komentar" + comment.id).find(".textKomentara").attr("href", "komentar.html?id=" + comment.id);
 	}
-	
-	console.log($("#komentar" + comment.id));
+	$("#komentar" + comment.id).find(".brojLike").text("like: " + comment.brojLike + " dislike: " + comment.brojDislike)
 
 }
-$(".likeKomentar").click(function(){
-	var id = $(this).parent().parent().attr("id");
-	console.log(id);
-});

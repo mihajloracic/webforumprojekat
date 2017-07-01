@@ -11,7 +11,21 @@ public class Komentar {
 	String tekst_komentar;
 	boolean izmenjen;
 	boolean obrisan;
+	int brojLike;
+	int brojDislike;
 	
+	public int getBrojLike() {
+		return brojLike;
+	}
+	public void setBrojLike(int brojLike) {
+		this.brojLike = brojLike;
+	}
+	public int getBrojDislike() {
+		return brojDislike;
+	}
+	public void setBrojDislike(int brojDislike) {
+		this.brojDislike = brojDislike;
+	}
 	public int getId() {
 		return id;
 	}

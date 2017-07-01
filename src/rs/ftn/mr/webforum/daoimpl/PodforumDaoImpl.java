@@ -10,7 +10,6 @@ import java.util.List;
 import rs.ftn.mr.webforum.dao.PodforumDao;
 import rs.ftn.mr.webforum.db.DbConnection;
 import rs.ftn.mr.webforum.entities.Podforum;
-import rs.ftn.mr.webforum.exceptions.DatabaseException;
 import rs.ftn.mr.webforum.util.DbUtils;
 
 public class PodforumDaoImpl implements PodforumDao{
@@ -131,22 +130,18 @@ public class PodforumDaoImpl implements PodforumDao{
 	}
 
 	@Override
-	public List<Podforum> Search(String Naslov, String Opis, int idModerator) {
-		String sql;
-		if (idModerator != 0){			
-		   sql = "select * from podforum where naziv like '%?%' and Opis like '%?%' and odgovorni_moderator=?";
-		}   
-		else
-		   sql = "select * from podforum where naziv like '%?%' and Opis like '%?%' and odgovorni_moderator=?";			
+	public List<Podforum> Search(String Naslov, String Opis, String moderatorUser) {
+		String sql;			
+		sql = "select f.* from podforum f left join user u on f.odgovorni_moderator=u.id where f.naziv like ? and f.Opis like ?  and u.user like ?";
     	PreparedStatement p = null;
 		ResultSet rs = null;
 		try {
 			p = DbConnection.getConnection()
 						.prepareStatement(sql);
-			p.setString(1, Naslov);
-			p.setString(2, Opis);
-			if (idModerator != 0) 
-				p.setInt(3, idModerator);
+			p.setString(1, "%"+Naslov+"%");
+			p.setString(2, "%"+Opis+"%");
+			p.setString(3, "%"+moderatorUser+"%");
+
 			rs = p.executeQuery();
 
 			return this.processSelectAll(rs);
@@ -160,10 +155,6 @@ public class PodforumDaoImpl implements PodforumDao{
 			DbUtils.close(rs, p);
 		}
     	return null;
-	}
-	@Override
-	public List<Podforum> Search(String Naslov, String Opis) {
-		return Search(Naslov, Opis,0);
 	}
 
 

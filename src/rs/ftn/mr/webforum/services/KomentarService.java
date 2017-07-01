@@ -10,12 +10,20 @@ import javax.ws.rs.core.Response;
 
 import rs.ftn.mr.webforum.dao.CookieDao;
 import rs.ftn.mr.webforum.dao.KomentarDao;
+import rs.ftn.mr.webforum.dao.LikeKomentarDao;
+import rs.ftn.mr.webforum.dao.LikeTemaDao;
+import rs.ftn.mr.webforum.dao.TemaDao;
 import rs.ftn.mr.webforum.dao.UserDAO;
 import rs.ftn.mr.webforum.daoimpl.CookieDaoImpl;
 import rs.ftn.mr.webforum.daoimpl.KomentarDaoImpl;
+import rs.ftn.mr.webforum.daoimpl.LikeKomentarDaoImpl;
+import rs.ftn.mr.webforum.daoimpl.LikeTemaDaoImpl;
 import rs.ftn.mr.webforum.daoimpl.PodforumDaoImpl;
+import rs.ftn.mr.webforum.daoimpl.TemaDaoImpl;
 import rs.ftn.mr.webforum.daoimpl.UserDAOImpl;
 import rs.ftn.mr.webforum.entities.Komentar;
+import rs.ftn.mr.webforum.entities.LikeKomentar;
+import rs.ftn.mr.webforum.entities.LikeTema;
 import rs.ftn.mr.webforum.entities.Podforum;
 
 @Path("/komentar")
@@ -23,6 +31,7 @@ public class KomentarService {
 	@POST
 	@Path("/add")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({ MediaType.APPLICATION_JSON})
 	public Response add(Komentar komentar,@CookieParam("web-forum") String value) {	
 		Response response;
 		KomentarDao komentarDao = new KomentarDaoImpl();
@@ -32,8 +41,9 @@ public class KomentarService {
 			response = Response.status(405).build();
 		}
 		komentar.setAutor(userId);
-		komentarDao.addNew(komentar);
-	    response = Response.status(200).build();
+	    response = Response.status(200)
+	    		.entity(komentarDao.addNew(komentar))
+	    		.build();
 
 		return response;
 	}
@@ -54,4 +64,62 @@ public class KomentarService {
 
 		return response;
 	}
+	@POST
+	@Path("/comments")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({ MediaType.APPLICATION_JSON})
+	public Response getAll(Komentar k) {	
+		Response response;
+		KomentarDao komentarDao = new KomentarDaoImpl();
+		
+		k = komentarDao.selectById(k.getId());
+	    response = Response.status(200)
+	    		.entity(komentarDao.selectByParentIdPost(k.getId_tema(), k.getId_parent_komentar()))
+	    		.build();
+
+		return response;
+	}
+	@POST
+	@Path("/getComment")
+	@Consumes({ MediaType.TEXT_PLAIN, MediaType.APPLICATION_XML})
+	@Produces({ MediaType.APPLICATION_JSON})
+	public Response getComment(String commentId) {	
+		Response response;
+		KomentarDao komentarDao = new KomentarDaoImpl();
+		commentId = commentId.replaceAll("#", "");
+		int id = Integer.parseInt(commentId);
+		
+		Komentar k = komentarDao.selectById(id);
+		
+	    response = Response.status(200)
+	    		.entity(k)
+	    		.build();
+
+		return response;
+	}
+	
+	@POST
+	@Path("/like")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response likeKomentar(LikeKomentar likeKomentar,@CookieParam("web-forum") String value) {	
+		Response response;
+		KomentarDao komentarDao = new KomentarDaoImpl();
+		CookieDao cookieDao = new CookieDaoImpl();
+		LikeKomentarDao likeKomentarDao = new LikeKomentarDaoImpl();
+		int userId = cookieDao.getById(value);
+		if(userId == 0){
+			response = Response.status(405).build();
+			return response;
+		}
+		likeKomentar.setIdUser(userId);
+		likeKomentarDao.addNew(likeKomentar);
+	    response = Response
+	    		.status(200)
+	    		.entity(komentarDao.selectById(likeKomentar.getIdKomentar()))
+	    		.build();
+
+		return response;
+	}
+	
 }

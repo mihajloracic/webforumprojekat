@@ -3,6 +3,7 @@ package rs.ftn.mr.webforum.services;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -57,6 +58,23 @@ public class PodforumService {
 	    response = Response.
 	    		status(200)
 	    		.entity(podforumDao.selectAll())
+	    		.build();
+	
+		return response;
+	}
+	
+	@GET
+	@Path("/search")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response searchAll() {	
+		
+		Response response;
+		
+		PodforumDao podforumDao = new PodforumDaoImpl();
+	
+	    response = Response.
+	    		status(200)
+	    		.entity(podforumDao.Search("", "", "Miha"))
 	    		.build();
 	
 		return response;

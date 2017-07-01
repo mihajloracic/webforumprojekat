@@ -2,9 +2,26 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Tema na geru forumu</title>
+<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/bootstrap-theme.css">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script src="js/cookie.js"></script>
+<script src="js/komentar.js"></script>
+<script type="text/javascript" src="js/bootstrap-js.js"></script>
 </head>
 <body>
-	
+		<div class="container jumbotron">
+		<h1 id="naslov" class="text-center"></h1>
+		<p>
+			Kreirao: <span id="user"> </span>
+		</p>
+		<p id="createdOn"></p>
+		<p id="brojLike">Like: </p>
+
+		<p id="brojDislike">Dislike: </p>
+		<button class="btn btn-default pull-right" id="likeTemaAdd">Like</button>
+		<button class="btn btn-default pull-right" id="dislikeTemaAdd">Dislike</button>
+	</div>
 </body>
 </html>
