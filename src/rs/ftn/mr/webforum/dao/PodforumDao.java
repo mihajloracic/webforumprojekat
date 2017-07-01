@@ -8,6 +8,8 @@ import rs.ftn.mr.webforum.entities.User;
 public interface PodforumDao {
 	public Podforum selectById(int podforumId) ;
 	public Podforum selectByName(String podforumName) ;
+	public List Search(String Naslov, String Opis);
+	public List Search(String Naslov,String Opis, int idModerator);
 	public List selectAll() ;
 	public void delete(int podforumId) ;
 	public void update(Podforum podforum) ;

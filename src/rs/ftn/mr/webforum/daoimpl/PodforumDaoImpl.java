@@ -1,6 +1,6 @@
 package rs.ftn.mr.webforum.daoimpl;
 
-import java.sql.Date;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +10,6 @@ import java.util.List;
 import rs.ftn.mr.webforum.dao.PodforumDao;
 import rs.ftn.mr.webforum.db.DbConnection;
 import rs.ftn.mr.webforum.entities.Podforum;
-import rs.ftn.mr.webforum.entities.User;
 import rs.ftn.mr.webforum.exceptions.DatabaseException;
 import rs.ftn.mr.webforum.util.DbUtils;
 
@@ -48,7 +47,7 @@ public class PodforumDaoImpl implements PodforumDao{
 	}
 
 	@Override
-	public List selectAll() {
+	public List<Podforum> selectAll() {
 		String sql = "select * from podforum";
     	PreparedStatement p = null;
 		ResultSet rs = null;
@@ -69,8 +68,8 @@ public class PodforumDaoImpl implements PodforumDao{
 		}
     	return null;
 	}
-	protected List processSelectAll(ResultSet rs) throws SQLException {
-		List list = new ArrayList();
+	protected List<Podforum> processSelectAll(ResultSet rs) throws SQLException {
+		List<Podforum> list = new ArrayList<Podforum>();
 
 		while (rs.next()) {
 			Podforum podforum = new Podforum();
@@ -130,5 +129,42 @@ public class PodforumDaoImpl implements PodforumDao{
 		}
 		return 0;
 	}
+
+	@Override
+	public List<Podforum> Search(String Naslov, String Opis, int idModerator) {
+		String sql;
+		if (idModerator != 0){			
+		   sql = "select * from podforum where naziv like '%?%' and Opis like '%?%' and odgovorni_moderator=?";
+		}   
+		else
+		   sql = "select * from podforum where naziv like '%?%' and Opis like '%?%' and odgovorni_moderator=?";			
+    	PreparedStatement p = null;
+		ResultSet rs = null;
+		try {
+			p = DbConnection.getConnection()
+						.prepareStatement(sql);
+			p.setString(1, Naslov);
+			p.setString(2, Opis);
+			if (idModerator != 0) 
+				p.setInt(3, idModerator);
+			rs = p.executeQuery();
+
+			return this.processSelectAll(rs);
+		} catch (SQLException e) {
+			System.out.println(e.toString());
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+		}
+		finally {
+			DbUtils.close(rs, p);
+		}
+    	return null;
+	}
+	@Override
+	public List<Podforum> Search(String Naslov, String Opis) {
+		return Search(Naslov, Opis,0);
+	}
+
 
 }
