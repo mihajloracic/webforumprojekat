@@ -76,7 +76,7 @@ public class TemaService {
 		tema.setId_podforum(podforumId);
 		int userId = cookieDao.getById(value);
 		tema.setAutor(userId);
-		if(userId != 0){
+		if(userId != 0 && userId != -1){
 			temaDao.addNew(tema);
 			response = Response.status(200).build();
 		}else{

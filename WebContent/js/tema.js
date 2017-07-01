@@ -7,9 +7,9 @@ $( document ).ready(function() {
 		data: getUrlVars()["id"],
 		success : function(data) {
 			console.log("Komentari" + data)
-			/*data.forEach(function(element) {
-				$( "#posts" ).append( '<a href="tema.html?id=' + element.id + '" class="list-group-item list-group-item-action">'+element.naslov+'</a>' );
-			});*/
+			data.forEach(function(element) {
+				addComment(element);
+			});
 			
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -55,13 +55,14 @@ $( document ).ready(function() {
 		}else{
 			window.location.href = "register.html";			
 		}
+		
 		$.ajax({
 			method : 'POST',
 			url : "/rs.ftn.mr.webforum/rest/komentar/add",
 			contentType : 'application/json',
 			data : formToJSON($("#textKomentar").val()),
-			success : function(userStigao) {
-				//window.location.href = window.location.href;
+			success : function() {
+				window.location.href = window.location.href;
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown) {
 				console.log(textStatus);
@@ -126,13 +127,13 @@ function getUrlVars()
 function formToJSON(tekst) {
 	return JSON.stringify({
 		"id" : null,
-		"id_tema" : getUrlVars()["id"] ,
+		"id_tema" : getUrlVars()["id"].replace("#","") ,
 		"autor" : null,
 		"datum_kreiranja" : null,
 		"id_parent_komentar" : -1,
 		"tekst_komentar" : tekst,
-		"obirsan" : false,
-		izmenjen : false
+		"obrisan" : false,
+		"izmenjen" : false
 	});
 }
 function formLikeToJSON(like) {
@@ -142,4 +143,24 @@ function formLikeToJSON(like) {
 		"idUser" : null,
 		"like" : like
 	});
+}
+
+function addComment(comment){
+	console.log(comment);
+	text = '<div class="row" id="komentar' + comment.id + '"><div class="col-sm-5"> <a href="#" class="textKomentara"></a> </div> <div class="col-sm-1"> <p class="izmenjen"></p> </div> <div class="col-sm-1">  <div class="col-sm-1"> <a class="izmeni" href="#">izmeni</a> </div> <div class="col-sm-1"> <button class="btn btn-default likeKomentar">Like</button> </div> <div class="col-sm-1"> <button class="btn btn-default dislikeKomentar">Dislike</button> </div> <div class="col-sm-2 "> <p class="brojLike"></p> </div> </div>'
+	$(".commentContainer").append(text).val();
+	var selector = "#komentar" + comment.id + " .textKomentara";
+
+	if(comment.izmenjen == true) {
+		$("#komentar" + comment.id).find(".izmenjen").append("IZMENJEN");
+	}
+	if(comment.obrisan == true) {
+		$("#komentar" + comment.id).find(".textKomentara").append("OBRISAN");
+	}else{
+		$("#komentar" + comment.id).find(".textKomentara").append(comment.tekst_komentar);
+		$("#komentar" + comment.id).find(".textKomentara").attr("href", "komentar.html?id=" + comment.id);
+	}
+	
+	console.log($("#komentar" + comment.id));
+
 }
