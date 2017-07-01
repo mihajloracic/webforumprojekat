@@ -3,6 +3,7 @@ package rs.ftn.mr.webforum.daoimpl;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.ArrayList;
@@ -150,15 +151,14 @@ public class KomentarDaoImpl implements KomentarDao {
 	}
 
 	@Override
-	public int addNew(Komentar komentar) {
+	public Komentar addNew(Komentar komentar) {
 		// TODO Auto-generated method stub
 				String sql = "INSERT INTO komentar (id_tema,autor,datum_komentara, id_parent_komentar,tekst_komentar,izmenjen,obrisan)"
 						+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
 				PreparedStatement p = null;
 				try {
 					
-					p = DbConnection.getConnection().prepareStatement(sql);
-					
+					p = DbConnection.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 					p.setInt(1, komentar.getId_tema());
 					p.setInt(2, komentar.getAutor());
 					java.util.Date utilDate = new java.util.Date();
@@ -168,6 +168,15 @@ public class KomentarDaoImpl implements KomentarDao {
 					p.setBoolean(6, komentar.isIzmenjen());
 					p.setBoolean(7, komentar.isObrisan());
 					p.execute();
+				       try (ResultSet generatedKeys = p.getGeneratedKeys()) {
+				            if (generatedKeys.next()) {
+				                komentar.setId(generatedKeys.getInt(1));
+				                return komentar;
+				            }
+				            else {
+				                throw new SQLException("Creating Komentar failed, no ID obtained.");
+				            }
+				        }					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -179,7 +188,7 @@ public class KomentarDaoImpl implements KomentarDao {
 					DbUtils.close(p);
 				}
 				
-				return 0;
+				return komentar;
 	}
 
 	

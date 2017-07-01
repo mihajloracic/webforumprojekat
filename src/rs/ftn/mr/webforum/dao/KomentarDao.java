@@ -11,5 +11,5 @@ public interface KomentarDao {
 	public List<Komentar> selectByParentIdPost(int parentId,int postId);
 	public void delete(int komentarId);
 	public void update(Komentar komentar);
-	public int addNew(Komentar komentar);
+	public Komentar addNew(Komentar komentar);
 }
