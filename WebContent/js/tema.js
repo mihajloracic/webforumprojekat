@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+	updateTema();
 	$("#likeTemaAdd").click(function(){
 		$.ajax({
 			method : 'POST',
@@ -6,7 +7,7 @@ $( document ).ready(function() {
 			contentType : 'application/json',
 			data :  formLikeToJSON(true),
 			success : function() {
-				window.location.href = window.location.href;
+				window.location.href = window.location.href; 
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown) {
 				console.log(textStatus);
@@ -29,6 +30,29 @@ $( document ).ready(function() {
 			}
 		});
 	});
+	$("#dodajKomentar").click(function(e){
+		e.preventDefault();
+		if($.cookie("web-forum") != null && $.cookie("web-forum") != "" && $.cookie("web-forum") != undefined){		
+		}else{
+			window.location.href = "register.html";			
+		}
+		$.ajax({
+			method : 'POST',
+			url : "/rs.ftn.mr.webforum/rest/komentar/add",
+			contentType : 'application/json',
+			data : formToJSON($("#textKomentar").val()),
+			success : function(userStigao) {
+				//window.location.href = window.location.href;
+			},
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		});
+	});
+	
+});
+function updateTema(){
 	$(".content").hide();
 	$.ajax({
 		method : 'POST',
@@ -64,28 +88,7 @@ $( document ).ready(function() {
 			console.log(errorThrown);
 		}
 	});
-	$("#dodajKomentar").click(function(e){
-		e.preventDefault();
-		if($.cookie("web-forum") != null && $.cookie("web-forum") != "" && $.cookie("web-forum") != undefined){		
-		}else{
-			window.location.href = "register.html";			
-		}
-		$.ajax({
-			method : 'POST',
-			url : "/rs.ftn.mr.webforum/rest/komentar/add",
-			contentType : 'application/json',
-			data : formToJSON($("#textKomentar").val()),
-			success : function(userStigao) {
-				//window.location.href = window.location.href;
-			},
-			error : function(XMLHttpRequest, textStatus, errorThrown) {
-				console.log(textStatus);
-				console.log(errorThrown);
-			}
-		});
-	});
-	
-});
+}
 function getPodforum(){
 	var id = getUrlVars()["locationId"];
 }
