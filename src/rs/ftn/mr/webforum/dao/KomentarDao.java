@@ -6,10 +6,9 @@ import rs.ftn.mr.webforum.entities.Komentar;
 import rs.ftn.mr.webforum.entities.Podforum;
 
 public interface KomentarDao {
-	public Podforum selectById(int komentarId) ;
-	public Podforum selectByName(String komentarName) ;
-	public List selectAll();
-	public List selectByParentIdPost(int parentId,int postId);
+	public Komentar selectById(int komentarId) ;
+	public List<Komentar> selectByIdTema(int idTema) ;
+	public List<Komentar> selectByParentIdPost(int parentId,int postId);
 	public void delete(int komentarId);
 	public void update(Komentar komentar);
 	public int addNew(Komentar komentar);

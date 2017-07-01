@@ -10,7 +10,7 @@ public class Komentar {
 	int id_parent_komentar;
 	String tekst_komentar;
 	boolean izmenjen;
-	boolean obirsan;
+	boolean obrisan;
 	
 	public int getId() {
 		return id;
@@ -54,11 +54,11 @@ public class Komentar {
 	public void setIzmenjen(boolean izmenjen) {
 		this.izmenjen = izmenjen;
 	}
-	public boolean isObirsan() {
-		return obirsan;
+	public boolean isObrisan() {
+		return obrisan;
 	}
-	public void setObirsan(boolean obirsan) {
-		this.obirsan = obirsan;
+	public void setObrisan(boolean obirsan) {
+		this.obrisan = obirsan;
 	}
 	
 }

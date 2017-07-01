@@ -37,4 +37,21 @@ public class KomentarService {
 
 		return response;
 	}
+	@POST
+	@Path("/getComments")
+	@Consumes({ MediaType.TEXT_PLAIN, MediaType.APPLICATION_XML})
+	@Produces({ MediaType.APPLICATION_JSON})
+	public Response getAll(String temaId) {	
+		Response response;
+		KomentarDao komentarDao = new KomentarDaoImpl();
+		temaId = temaId.replaceAll("#", "");
+		int podforumId = Integer.parseInt(temaId);
+		komentarDao.selectByParentIdPost(-1, podforumId);
+		
+	    response = Response.status(200)
+	    		.entity(komentarDao.selectByParentIdPost(-1, podforumId))
+	    		.build();
+
+		return response;
+	}
 }
