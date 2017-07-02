@@ -15,4 +15,5 @@ public interface TemaDao {
 	public void update(Tema tema) ;
 	public int addNew(Tema tema);
 	public List getLikedByUser(int userId);
+	public List<Tema>getFromForumsFollowedByUser(User user);
 }
