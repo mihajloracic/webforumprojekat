@@ -166,4 +166,33 @@ public class UserDAOImpl implements UserDAO {
 		return 0;
 	}
 
+
+
+	@Override
+	public List<User> searchByNicName(String userName) {
+    	String sql = "select * from user where user like ?";
+    	PreparedStatement p = null;
+		ResultSet rs = null;
+		try {
+			p = DbConnection.getConnection()
+						.prepareStatement(sql);
+			p.setString(1, "%"+userName+"%");			
+			rs = p.executeQuery();
+			return this.processSelectAll(rs);
+		} catch (SQLException e) {
+			System.out.println(e.toString());
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+		}
+		finally {
+			DbUtils.close(rs, p);
+		}
+    	return null;
+	}
+
+
+
+
+
 }

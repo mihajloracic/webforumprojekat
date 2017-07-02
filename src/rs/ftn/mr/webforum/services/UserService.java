@@ -170,13 +170,29 @@ public class UserService {
 	@Consumes({ MediaType.TEXT_PLAIN, MediaType.APPLICATION_XML})
 	@Path("/deleteCookie")
 	public void deleteCookie(String value) {	
-		//todos
+		//TODO
 		
 		CookieDao cookieDao = new CookieDaoImpl();
 		
 		cookieDao.delete(value);
 
 	}
+	@GET
+	@Path("/search")
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.TEXT_PLAIN, MediaType.APPLICATION_XML})
+	public Response search() {	
+	// userDao.search(String naslov,String sadrzaj, String autor, String podforum)
+		Response response;		
+		UserDAO userDao = new UserDAOImpl();
+	    response = Response.
+	    		status(200)
+	    		.entity(userDao.searchByNicName("asd"))
+	    		.build();
+	
+		return response;
+	}	
+   
 	
 }
 

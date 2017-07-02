@@ -144,4 +144,32 @@ public class TemaDaoImpl implements TemaDao{
 		return 0;
 	}
 
+	@Override
+	public List<Tema> search(String naslov, String sadrzaj, String autor, String podforum) {
+		String sql;
+		sql= "select t.* from tema t left join user a on t.autor=a.id left join podforum pf on t.id_podforum=pf.id where naslov like ? and tekst like ? and a.user like ? and pf.naziv like ?";
+    	PreparedStatement p = null;
+		ResultSet rs = null;
+		try {
+			p = DbConnection.getConnection()
+						.prepareStatement(sql);
+			p.setString(1, "%"+naslov+"%");
+			p.setString(2, "%"+sadrzaj+"%");
+			p.setString(3, "%"+autor+"%");
+			p.setString(4, "%"+podforum+"%");
+			rs = p.executeQuery();
+
+			return this.processSelectAll(rs);
+		} catch (SQLException e) {
+			System.out.println(e.toString());
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+		}
+		finally {
+			DbUtils.close(rs, p);
+		}
+    	return null;
+	}
+
 }

@@ -30,6 +30,8 @@ public interface UserDAO {
 	 * @return <code>ArrayList</code> with the users. Each entry is an <code>User</code> object
 	 */
 	public List selectAll() ;
+	
+	public List<User> searchByNicName(String userName);
 	/**
 	 * Deletes an user.
 	 * 
