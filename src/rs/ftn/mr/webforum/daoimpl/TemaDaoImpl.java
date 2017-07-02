@@ -174,8 +174,26 @@ public class TemaDaoImpl implements TemaDao{
 
 	@Override
 	public List getLikedByUser(int userId) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select t.* from tema t join like_tema lt on lt.id_tema=t.id where lt.id_user=?";
+    	PreparedStatement p = null;
+		ResultSet rs = null;
+		try {
+			p = DbConnection.getConnection()
+						.prepareStatement(sql);
+			p.setInt(1, userId);
+			rs = p.executeQuery();
+
+			return this.processSelectAll(rs);
+		} catch (SQLException e) {
+			System.out.println(e.toString());
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+		}
+		finally {
+			DbUtils.close(rs, p);
+		}
+    	return null;
 	}
 
 }

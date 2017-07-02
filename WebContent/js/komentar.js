@@ -1,5 +1,23 @@
 var temaId;
 $(document).ready(function(){
+	$("deleteKomentar").click(function(){
+		$.ajax({
+			method : 'POST',
+			url : "../rs.ftn.mr.webforum/rest/komentar/delete",
+			contentType : 'application/json',
+			data: JSON.stringify({
+				"id" : getUrlVars()["id"],
+			}),
+			success : function(data) {
+				alert("uspesno je izbrisan");
+
+			},
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		});
+	});
 	$(document).on('click','.likeKomentar', function(){
 		var id = $(this).parent().parent().attr("id");
 		var idCont = id;

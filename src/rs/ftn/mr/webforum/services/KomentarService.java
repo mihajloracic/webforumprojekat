@@ -51,7 +51,6 @@ public class KomentarService {
 	@POST
 	@Path("/delete")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	@Produces({ MediaType.APPLICATION_JSON})
 	public Response delete(Komentar komentar,@CookieParam("web-forum") String value) {	
 		Response response;
 		KomentarDao komentarDao = new KomentarDaoImpl();
@@ -59,12 +58,12 @@ public class KomentarService {
 		UserDAO userDao = new UserDAOImpl();
 		int userId = cookieDao.getById(value);
 		User u = userDao.selectById(userId);
-		if(userId == 0 || u.getUloga() != "admin" || u.getUloga() != "moderator"){
-			response = Response.status(405).build();
+		if(userId != 0 && u.getUloga() != "admin" && u.getUloga() != "moderator"){
+			response = Response.status(401).build();
+			return response;
 		}
-		komentar.setAutor(userId);
+		komentarDao.delete(komentar.getId());
 	    response = Response.status(200)
-	    		.entity(komentarDao.addNew(komentar))
 	    		.build();
 
 		return response;
