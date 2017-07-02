@@ -21,7 +21,7 @@
 
 		<p id="brojDislike">Dislike: </p>
 		<button class="btn btn-default pull-right edit" id="deleteKomentar">Izbrisi komentar</button>
-		<button class="btn btn-default pull-right edit" id="editKomentar">Izmeni komentar</button>
+		<button class="btn btn-default pull-right edit" id="editKomentar" data-toggle="modal" data-target="#myModal">Izmeni komentar</button>
 	</div>
 	<div class="container">
 	<div class=commentContainer>
@@ -46,6 +46,31 @@
 				</div>
 			</div>
 		</form>
+	</div>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Izmena komentara</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="formGroupExampleInput">Novi tekst komentara...</label>
+						 <input type="text" class="form-control" id="textIzmena" placeholder="Novi tekst komentara..." required>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+					<button id="buttonIzmeni"
+						class="btn btn-primary" data-dismiss="modal">Izmeni komentar</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

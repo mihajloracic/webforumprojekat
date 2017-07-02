@@ -49,6 +49,32 @@ public class KomentarService {
 		return response;
 	}
 	@POST
+	@Path("/update")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public Response update(Komentar komentar,@CookieParam("web-forum") String value) {	
+		Response response;
+		KomentarDao komentarDao = new KomentarDaoImpl();
+		CookieDao cookieDao = new CookieDaoImpl();
+		UserDAO userDao = new UserDAOImpl();
+		int userId = cookieDao.getById(value);
+		User u = userDao.selectById(userId);
+		String saveNewText = komentar.getTekst_komentar();
+		komentar = komentarDao.selectById(komentar.getId());
+		komentar.setTekst_komentar(saveNewText);
+		if(userId != komentar.getAutor() && u.getUloga().equals("admin") && u.getUloga().equals("moderator")){
+			response = Response.status(401).build();
+			return response;
+		}
+		if(userId == komentar.getAutor()){
+			komentar.setIzmenjen(true);
+		}
+		komentarDao.update(komentar);
+	    response = Response.status(200)
+	    		.build();
+
+		return response;
+	}
+	@POST
 	@Path("/delete")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Response delete(Komentar komentar,@CookieParam("web-forum") String value) {	
@@ -58,7 +84,8 @@ public class KomentarService {
 		UserDAO userDao = new UserDAOImpl();
 		int userId = cookieDao.getById(value);
 		User u = userDao.selectById(userId);
-		if(userId != 0 && u.getUloga() != "admin" && u.getUloga() != "moderator"){
+		komentar = komentarDao.selectById(komentar.getId());
+		if(userId != komentar.getAutor() && u.getUloga() != "admin" && u.getUloga() != "moderator"){
 			response = Response.status(401).build();
 			return response;
 		}

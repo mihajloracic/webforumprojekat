@@ -24,12 +24,10 @@ public class DbConnection {
 	public static Connection getConnection() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException
 	{
     	if (con == null){
-    		File dbfile = new File(".");
-    		String url = dbfile.getAbsolutePath()+"\\database\\webforum.db";
+            System.out.println("Catalina_home:"+System.getProperty("catalina.home"));
+            String url = System.getProperty("catalina.home")+"\\database\\webforum.db";
     		Class.forName("org.sqlite.JDBC").newInstance();
-    		con = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\mihajlo\\JavaWebProjekti\\rs.ftn.mr.webforum\\database\\webforum.db");	
-       		//con = DriverManager.getConnection("jdbc:sqlite:G:\\Eclipse_Mars_Workspace\\webforumprojekat\\database\\webforum.db");	
-    		     		//con = DriverManager.getConnection("jdbc:sqlite:"+url);	
+            con = DriverManager.getConnection("jdbc:sqlite:"+url); 
     	}
 	    
 		return con; 

@@ -1,4 +1,20 @@
+var odgvorniModerator;
 $(document).ready(function() {
+	$("#buttonObrisiPodforum").hide();
+	$("#buttonObrisiPodforum").click(function(){
+		$.ajax({
+			method : 'POST',
+			url : "../rs.ftn.mr.webforum/rest/podforum/delete",
+			contentType : "application/json",
+			data : JSON.stringify({ "id" : getUrlVars()["name"]}),
+			success : function() {
+                window.location.href = window.location.href;
+			},
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				alert("Greska");
+			}
+		});
+	});
 	$(document).on("submit","#slanjeSlike512",function(e){
         e.preventDefault();
         var data = new FormData(this);
@@ -87,6 +103,23 @@ $(document).ready(function() {
 	prikaziPostove();
 	$.ajax({
 		method : 'POST',
+		url : "../rs.ftn.mr.webforum/rest/post/teme",
+		contentType : 'text/plain',
+		data: getUrlVars()["name"],
+		success : function(data) {
+			odgvorniModerator = data.odgovorniModerator;
+			data.forEach(function(element) {
+				$( "#posts" ).append( '<a href="tema.html?id=' + element.id + '" class="list-group-item list-group-item-action">'+element.naslov+'</a>' );
+			});
+			
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			console.log(textStatus);
+			console.log(errorThrown);
+		}
+	});
+	$.ajax({
+		method : 'POST',
 		url : "../rs.ftn.mr.webforum/rest/user/cookie",
 		contentType : 'text/plain',
 		dataType : "text",
@@ -94,8 +127,9 @@ $(document).ready(function() {
 		success : function(data) {
 			console.log(data);
 			var d = JSON.parse(data);
-			if(d.uloga == "admin" || d.uloga == "moderator"){
+			if(d.uloga == "admin" || d.id == odgvorniModerator){
 				$( "#addPodforum" ).show();
+				$("#buttonObrisiPodforum").show();
 			}
 			$("#user-name").text(d.user);
 		},
@@ -126,26 +160,11 @@ $(document).ready(function() {
 				$( "#podforum-holder" ).append(  '<li><a href=" /rs.ftn.mr.webforum/home.html?name=' + element.naziv +'">' + element.data + "</a></li>" );
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown) {
-				alert("ASDASD");
+
 			}
 		});
 	})
-	$.ajax({
-		method : 'POST',
-		url : "../rs.ftn.mr.webforum/rest/post/teme",
-		contentType : 'text/plain',
-		data: getUrlVars()["name"],
-		success : function(data) {
-			data.forEach(function(element) {
-				$( "#posts" ).append( '<a href="tema.html?id=' + element.id + '" class="list-group-item list-group-item-action">'+element.naslov+'</a>' );
-			});
-			
-		},
-		error : function(XMLHttpRequest, textStatus, errorThrown) {
-			console.log(textStatus);
-			console.log(errorThrown);
-		}
-	});
+
 });
 function podforumFormToJSON(naziv,opis,spisakPravila) {
 	return JSON.stringify({

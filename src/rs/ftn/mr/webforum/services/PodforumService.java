@@ -50,6 +50,30 @@ public class PodforumService {
 		return response;
 	}
 	@POST
+	@Path("/delete")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public Response delete(Podforum podforum,@CookieParam("web-forum") String value) {	
+		
+		Response response;
+		
+		PodforumDao podforumDao = new PodforumDaoImpl();
+		CookieDao cookieDao = new CookieDaoImpl();
+		int userId = cookieDao.getById(value);
+		if(userId == -1){
+			response = Response.status(405).build();
+		}
+		UserDAO userDao = new UserDAOImpl();
+		podforum.setOdgovorniModerator(userId);
+		String uloga = userDao.selectById(userId).getUloga();
+		if(uloga.equals("admin") || userId == podforum.getOdgovorniModerator()){//provera uloge preko sesije
+			   podforumDao.delete(podforum.getId());	
+			   response = Response.status(200).build();
+		}else{
+			response = Response.status(405).build();
+		}
+		return response;
+	}
+	@POST
 	@Path("/podforumi")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response findAll() {	

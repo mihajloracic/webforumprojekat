@@ -1,6 +1,29 @@
 var temaId;
+
 $(document).ready(function(){
-	$("deleteKomentar").click(function(){
+	$("#buttonIzmeni").click(function(){
+		if($("#textIzmena").val() == ""){
+			return;
+		}
+		$.ajax({
+			method : 'POST',
+			url : "../rs.ftn.mr.webforum/rest/komentar/update",
+			contentType : 'application/json',
+			data: JSON.stringify({
+				"id" : getUrlVars()["id"],
+				"tekst_komentar" : $("#textIzmena").val()
+			}),
+			success : function() {
+				$("#naslov").text($("#textIzmena").val());
+			},
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log(XMLHttpRequest);
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		});
+	});
+	$("#deleteKomentar").click(function(){
 		$.ajax({
 			method : 'POST',
 			url : "../rs.ftn.mr.webforum/rest/komentar/delete",
@@ -10,9 +33,9 @@ $(document).ready(function(){
 			}),
 			success : function(data) {
 				alert("uspesno je izbrisan");
-
+				window.location.href = "home.html"
 			},
-			error : function(XMLHttpRequest, textStatus, errorThrown) {
+			error : function(XMLHttpRequest, textStatus, erlororThrown) {
 				console.log(textStatus);
 				console.log(errorThrown);
 			}
@@ -164,7 +187,7 @@ function updateComment(){
 						$(".edit").show();
 					}
 					if(userStigao.uloga == "admin" || userStigao.uloga == "moderator"){
-						$("#deleteKomentar").show();
+						$(".edit").show();
 					}
 				},
 				error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -207,7 +230,7 @@ function addComment(comment){
 	var selector = "#komentar" + comment.id + " .textKomentara";
 
 	if(comment.izmenjen == true) {
-		$("#komentar" + comment.id).find(".izmenjen").append("IZMENJEN");
+		$("#komentar" + comment.id).find(".izmenjen").append("izm");
 	}
 	if(comment.obrisan == true) {
 		$("#komentar" + comment.id).find(".textKomentara").append("OBRISAN");

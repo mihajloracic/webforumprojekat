@@ -130,7 +130,7 @@ public class KomentarDaoImpl implements KomentarDao {
 			p.setDate(3, new Date(utilDate.getTime()));
 			p.setInt(4, komentar.getId_parent_komentar());
 			p.setString(5, komentar.getTekst_komentar());
-			p.setBoolean(6, true);
+			p.setBoolean(6, komentar.isIzmenjen());
 			p.setBoolean(7, komentar.isObrisan());
 			p.setInt(8, komentar.getId()); 
 			p.execute();
