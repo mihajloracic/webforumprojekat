@@ -172,4 +172,10 @@ public class TemaDaoImpl implements TemaDao{
     	return null;
 	}
 
+	@Override
+	public List getLikedByUser(int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

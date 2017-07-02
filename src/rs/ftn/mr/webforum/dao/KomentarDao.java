@@ -12,4 +12,5 @@ public interface KomentarDao {
 	public void delete(int komentarId);
 	public void update(Komentar komentar);
 	public Komentar addNew(Komentar komentar);
+	public List getLikedByUser(int userId);
 }

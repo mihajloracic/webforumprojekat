@@ -3,7 +3,7 @@
 <head>
 <meta>
 <title>Insert title here</title>
- <meta charset="UTF-8">
+<meta charset="UTF-8">
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/bootstrap-theme.css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -14,28 +14,28 @@
 <body>
 
 	<nav class="navbar navbar-default">
-	  <div class="container-fluid">
-	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span> 
-	      </button>
-	       <a class="navbar-brand" href="/rs.ftn.mr.webforum/home.html">Početna</a>
-	    </div>
-	    <div class="collapse navbar-collapse" id="myNavbar">
-	      <ul class="nav navbar-nav">
-				<li><a id="user-name" href="#"></a></li>
-				<li><a id="addPodforum" href="#" data-toggle="modal"
-					data-target="#myModal">Dodaj podforum</a></li>
-				<li><a id="user-looged-in" href="#">Prijava</a></li>
-				<li><a href="search.html">Pretraga</a></li>
-	      </ul>
-	      <ul class="nav navbar-nav navbar-right">
-    				<li><a id="logout" href="#">Odjava</a></li>
-	      </ul>
-	    </div>
-	  </div>
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#myNavbar">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/rs.ftn.mr.webforum/home.html">Početna</a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav">
+					<li><a id="user-name" href="profile.html"></a></li>
+					<li><a id="addPodforum" href="#" data-toggle="modal"
+						data-target="#myModal">Dodaj podforum</a></li>
+					<li><a id="user-looged-in" href="#">Prijava</a></li>
+					<li><a href="search.html">Pretraga</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a id="logout" href="#">Odjava</a></li>
+				</ul>
+			</div>
+		</div>
 	</nav>
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -50,22 +50,22 @@
 					<h4 class="modal-title" id="myModalLabel">Dodavanje podforuma</h4>
 				</div>
 				<div class="modal-body">
-						<div class="form-group">
-							<label for="formGroupExampleInput">Naziv podforuma</label> <input
-								type="text" class="form-control" id="modalNaziv"
-								placeholder="Naziv podforuma" required>
-						</div>
-						<div class="form-group">
-							<label for="formGroupExampleInput2">Opis podforuma</label>
-							<textarea rows="3" type="text" class="form-control"
-								id="modalOpis" placeholder="Opis podforuma" required></textarea>
-						</div>
-						<div class="form-group">
-							<label for="formGroupExampleInput2">Pravila</label>
-							<textarea rows="3" type="text" class="form-control"
-								id="modalPravila" placeholder="Pravila" required></textarea>
-						</div>
-			
+					<div class="form-group">
+						<label for="formGroupExampleInput">Naziv podforuma</label> <input
+							type="text" class="form-control" id="modalNaziv"
+							placeholder="Naziv podforuma" required>
+					</div>
+					<div class="form-group">
+						<label for="formGroupExampleInput2">Opis podforuma</label>
+						<textarea rows="3" type="text" class="form-control" id="modalOpis"
+							placeholder="Opis podforuma" required></textarea>
+					</div>
+					<div class="form-group">
+						<label for="formGroupExampleInput2">Pravila</label>
+						<textarea rows="3" type="text" class="form-control"
+							id="modalPravila" placeholder="Pravila" required></textarea>
+					</div>
+
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
@@ -76,7 +76,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- Modal -->
 	<div class="modal fade" id="temaModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel">
@@ -90,51 +90,52 @@
 					<h4 class="modal-title" id="myModalLabel">Dodavanje teme</h4>
 				</div>
 				<form id="slanjeSlike512">
-				<div class="modal-body">
-		
+					<div class="modal-body">
+
 						<div class="form-group">
 							<label for="formGroupExampleInput">Naslov teme</label> <input
 								type="text" class="form-control" id="temaNaziv"
 								placeholder="Naziv teme" required>
 						</div>
 						<div class="form-group">
-						  <label for="sel1">Tip teme:</label>
-						  <select class="form-control" id="tipSelect">
-						    <option>Tekst</option>
-						    <option>Link</option>
-						    <option>Slika</option>
-						  </select>
+							<label for="sel1">Tip teme:</label> <select class="form-control"
+								id="tipSelect">
+								<option>Tekst</option>
+								<option>Link</option>
+								<option>Slika</option>
+							</select>
 						</div>
 						<div class="form-group formpost" id="formTekst">
 							<label for="formGroupExampleInput2">Tekst</label>
-							<textarea rows="3" type="text" class="form-control"
-								id="postOpis" placeholder="Tekst za post" required></textarea>
+							<textarea rows="3" type="text" class="form-control" id="postOpis"
+								placeholder="Tekst za post" required></textarea>
 						</div>
 						<div class="form-group formpost" id="formLink">
 							<label for="formGroupExampleInput2">Link</label>
-							<textarea rows="3" type="text" class="form-control"
-								id="postLik" placeholder="Link za post" required></textarea>
+							<textarea rows="3" type="text" class="form-control" id="postLik"
+								placeholder="Link za post" required></textarea>
 						</div>
-						
+
 						<div class="form-group formpost" id="formSlika">
-							<label for="formGroupExampleInput2">Slika</label>
-
-							<input type="file" class="form-control" placeholder="Picture" id="pictureLink">							
-							<img class="img-responsive"  id="blah" src="#" alt="your image" />
+							<label for="formGroupExampleInput2">Slika</label> <input
+								type="file" class="form-control" placeholder="Picture"
+								id="pictureLink"> <img class="img-responsive" id="blah"
+								src="#" alt="your image" />
 
 						</div>
-				
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
-					<button id="buttonDodajPost"class="btn btn-primary" data-dismiss="modal">Dodaj post</button>
-				</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+						<button id="buttonDodajPost" class="btn btn-primary"
+							data-dismiss="modal">Dodaj post</button>
+					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-	
-	
+
+
 	<div class="container">
 		<div class="jumbotron">
 			<h1 class="text-center">Web forum</h1>
@@ -148,21 +149,22 @@
 			</div>
 		</nav>
 		<div class="container podforum-holder" style="cursor: pointer;">
-	    
-		<h2 id="podforum-naslov" class="text-center" ></h2>
-		<div id="podforum-info-holder">
-		<h3 id="podforum-naslov-opis">Opis</h3>
-		<p id="podforum-opis"></p>
-		<h3 id="podforum-naslov-pravila">Pravila</h3>
-		<p id="podforum-pravila"></p>
-		</div>
+
+			<h2 id="podforum-naslov" class="text-center"></h2>
+			<div id="podforum-info-holder">
+				<h3 id="podforum-naslov-opis">Opis</h3>
+				<p id="podforum-opis"></p>
+				<h3 id="podforum-naslov-pravila">Pravila</h3>
+				<p id="podforum-pravila"></p>
+			</div>
 		</div>
 		<div id="posts" class="panel panel-default"></div>
 		<button id="otvaraceForme" data-toggle="modal"
-					data-target="#temaModal" type="button" class="btn btn-primary pull-right">+ Dodaj temu</button>
-		
-		</div>
-	<html>
+			data-target="#temaModal" type="button"
+			class="btn btn-primary pull-right">+ Dodaj temu</button>
+
+	</div>
+<html>
 <body>
 
 </body>

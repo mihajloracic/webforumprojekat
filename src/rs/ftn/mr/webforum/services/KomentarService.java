@@ -97,6 +97,20 @@ public class KomentarService {
 
 		return response;
 	}
+	@POST
+	@Path("/liked")
+	@Produces({ MediaType.APPLICATION_JSON})
+	public Response getLikdeComments(@CookieParam("web-forum") String value) {	
+		Response response;
+		KomentarDao komentarDao = new KomentarDaoImpl();
+		CookieDao cookieDao = new CookieDaoImpl();
+		int userId = cookieDao.getById(value);
+	    response = Response.status(200)
+	    		.entity(komentarDao.getLikedByUser(userId))
+	    		.build();
+
+		return response;
+	}
 	
 	@POST
 	@Path("/like")
@@ -105,8 +119,8 @@ public class KomentarService {
 	public Response likeKomentar(LikeKomentar likeKomentar,@CookieParam("web-forum") String value) {	
 		Response response;
 		KomentarDao komentarDao = new KomentarDaoImpl();
-		CookieDao cookieDao = new CookieDaoImpl();
 		LikeKomentarDao likeKomentarDao = new LikeKomentarDaoImpl();
+		CookieDao cookieDao = new CookieDaoImpl();
 		int userId = cookieDao.getById(value);
 		if(userId == 0){
 			response = Response.status(405).build();

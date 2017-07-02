@@ -14,4 +14,5 @@ public interface TemaDao {
     void delete(int id) ;
 	public void update(Tema tema) ;
 	public int addNew(Tema tema);
+	public List getLikedByUser(int userId);
 }

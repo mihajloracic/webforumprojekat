@@ -169,5 +169,19 @@ public class TemaService {
 	
 		return response;
 	}	
-   
+	@POST
+	@Path("/liked")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response searchTemaLiked(@CookieParam("web-forum") String value) {	
+		Response response;		
+	    TemaDao temaDao = new TemaDaoImpl();
+		CookieDao cookieDao = new CookieDaoImpl();
+		int userId = cookieDao.getById(value);
+	    response = Response.
+	    		status(200)
+	    		.entity(temaDao.getLikedByUser(userId))
+	    		.build();
+	
+		return response;
+	}	
 }

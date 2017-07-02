@@ -7,7 +7,7 @@ $( document ).ready(function() {
     			console.log(data)
     			data.forEach(function(element) {
     				console.log(element);
-    				$( "#posts" ).append( '<a href="read.html?id=' + element.id + '&name=' + element.senderName + '" class="list-group-item list-group-item-action">subject: '+element.subject + " username: " +element.senderName+'<p>' + element.tekstlo + '</p></a>' );
+    				$( "#posts" ).append( '<a href="#" class="list-group-item list-group-item-action">subject: '+element.subject + " username: " +element.senderName+'<p>' + element.tekst+ '</p></a>' );
     			});
     			
     		},

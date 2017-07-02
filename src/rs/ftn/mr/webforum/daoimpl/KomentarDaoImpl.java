@@ -221,6 +221,13 @@ public class KomentarDaoImpl implements KomentarDao {
 	}
 
 
+	@Override
+	public List getLikedByUser(int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 
 }
