@@ -10,7 +10,8 @@ public interface TemaDao {
 	public Tema selectById(int id) ;
 	public Tema selectByName(String naziv) ;
 	public List selectAll(int podforumId) ;
-	public void delete(int id) ;
+	public List<Tema> search(String naslov,String sadrzaj, String autor, String podforum);	
+    void delete(int id) ;
 	public void update(Tema tema) ;
 	public int addNew(Tema tema);
 }
