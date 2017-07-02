@@ -112,9 +112,7 @@ public class KomentarDaoImpl implements KomentarDao {
 		}
 		finally {
 			DbUtils.close(p);
-		}
-		
-
+		}		
 	}
 
 	@Override
@@ -223,7 +221,23 @@ public class KomentarDaoImpl implements KomentarDao {
 
 	@Override
 	public List getLikedByUser(int userId) {
-		// TODO Auto-generated method stub
+		String sql = "select k.* from komentar k join like_komentar lk on lk.id_komentar=k.id where lk.id_user=?";	
+		PreparedStatement p = null;
+		ResultSet rs = null;
+		try {
+			p = DbConnection.getConnection().prepareStatement(sql);
+			p.setInt(1, userId);
+			rs = p.executeQuery();
+			return this.processSelectAll(rs);
+		} catch (SQLException e) {
+			System.out.println(e.toString());
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+		}
+		finally {
+			DbUtils.close(rs, p);
+		}
 		return null;
 	}
 
