@@ -42,4 +42,47 @@ public class PorukeService {
 		
 		return Response.status(200).build();
 	}
+	@POST
+	@Path("/get")
+	@Consumes({MediaType.TEXT_PLAIN})
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response get(@CookieParam("web-forum") String value, int messageId) {	
+		
+		Response response = null;
+		UserDAO userDAO = new UserDAOImpl();
+		CookieDao cookieDao = new CookieDaoImpl();
+		int id = cookieDao.getById(value);
+		
+		PorukaDao porukeDao = new PorukaDaoImpl();
+		Poruka m = porukeDao.getById(messageId);
+		
+		if(id ==  0 || id == -1 || m.getPrima() != id){
+			response = Response.status(401).build();
+			return response;
+		}
+		
+		
+		return Response.status(200).entity(m).build();
+	}
+	
+	
+	@POST
+	@Path("/getMessages")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response getMessages(@CookieParam("web-forum") String value) {	
+		
+		Response response = null;
+		UserDAO userDAO = new UserDAOImpl();
+		
+		CookieDao cookieDao = new CookieDaoImpl();
+		int id = cookieDao.getById(value);
+		
+		if(id ==  0 || id == -1){
+			response = Response.status(401).build();
+			return response;
+		}
+		PorukaDao porukeDao = new PorukaDaoImpl();
+		
+		return Response.status(200).entity(porukeDao.getByUserId(id)).build();
+	}
 }

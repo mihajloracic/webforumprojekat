@@ -6,6 +6,7 @@ public class Poruka {
 	int salje;
 	String subject;
 	String tekst;
+	String senderName;
 	public int getId() {
 		return id;
 	}
@@ -35,6 +36,12 @@ public class Poruka {
 	}
 	public void setTekst(String tekst) {
 		this.tekst = tekst;
+	}
+	public String getSenderName() {
+		return senderName;
+	}
+	public void setSenderName(String senderName) {
+		this.senderName = senderName;
 	}
 	
 }
