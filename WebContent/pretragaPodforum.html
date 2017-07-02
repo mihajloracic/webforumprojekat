@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>pretraga</title>
+<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/bootstrap-theme.css">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script src="js/cookie.js"></script>
+<script type="text/javascript" src="js/pretraga-podforum.js"></script>
+<script type="text/javascript" src="js/bootstrap-js.js"></script>
+</head>
+<body>
+
+  <div class="container">
+  <div class="jumbotron">
+  	<h2 class="text-center"> Pretraga podforuma</h2>
+  </div>
+  <form>
+
+  <div class="form-group">
+    <label  for="formGroupExampleInput">Naslov</label>
+    <input id="naslov" type="text" class="form-control" id="formGroupExampleInput" placeholder="Naslov">
+  </div>
+  
+  <div class="form-group">
+    <label  for="formGroupExampleInput">Opis</label>
+    <input id="opis" type="text" class="form-control" id="formGroupExampleInput" placeholder="Opis">
+  </div>
+  
+  <div class="form-group">
+    <label  for="formGroupExampleInput">Odgovorni moderator</label>
+    <input id="moderator" type="text" class="form-control" id="formGroupExampleInput" placeholder="Odgovorni moderator">
+  </div>
+
+  <div class="form-group">
+    <button class="btn btn-primary pull-right" id="search">Pretrazi</button>
+  </div>
+</form>
+
+  </div>
+  <div class="container">
+  	<div class="row" id="posts">
+
+	</div>
+  </div>
+</body>
+</html>

@@ -27,8 +27,8 @@ public class DbConnection {
     		File dbfile = new File(".");
     		String url = dbfile.getAbsolutePath()+"\\database\\webforum.db";
     		Class.forName("org.sqlite.JDBC").newInstance();
-    		//con = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\mihajlo\\JavaWebProjekti\\rs.ftn.mr.webforum\\database\\webforum.db");	
-       		con = DriverManager.getConnection("jdbc:sqlite:G:\\Eclipse_Mars_Workspace\\webforumprojekat\\database\\webforum.db");	
+    		con = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\mihajlo\\JavaWebProjekti\\rs.ftn.mr.webforum\\database\\webforum.db");	
+       		//con = DriverManager.getConnection("jdbc:sqlite:G:\\Eclipse_Mars_Workspace\\webforumprojekat\\database\\webforum.db");	
     		     		//con = DriverManager.getConnection("jdbc:sqlite:"+url);	
     	}
 	    

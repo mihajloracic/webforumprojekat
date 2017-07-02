@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>pretraga</title>
+<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/bootstrap-theme.css">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script src="js/cookie.js"></script>
+<script type="text/javascript" src="js/pretraga-tema.js"></script>
+<script type="text/javascript" src="js/bootstrap-js.js"></script>
+</head>
+<body>
+
+  <div class="container">
+  <div class="jumbotron">
+  	<h2 class="text-center"> Pretraga po temama</h2>
+  </div>
+  <form>
+
+  <div class="form-group">
+    <label  for="formGroupExampleInput">Naslov</label>
+    <input id="naslov" type="text" class="form-control" id="formGroupExampleInput" placeholder="Naslov">
+  </div>
+  <div class="form-group">
+    <label  for="formGroupExampleInput">Sadrzaj</label>
+    <input id="sadrzaj" type="text" class="form-control" id="formGroupExampleInput" placeholder="Sadrzaj">
+  </div>
+  <div class="form-group">
+    <label  for="formGroupExampleInput">Autor</label>
+    <input id="autor" type="text" class="form-control" id="formGroupExampleInput" placeholder="Autor">
+  </div>
+  <div class="form-group">
+    <label  for="formGroupExampleInput">Podforum</label>
+    <input id="podforum" type="text" class="form-control" id="formGroupExampleInput" placeholder="Podforum">
+  </div>
+
+  <div class="form-group">
+    <button class="btn btn-primary pull-right" id="search">Pretrazi</button>
+  </div>
+</form>
+<div class="row" id="posts">
+
+</div>
+  </div>
+</body>
+</html>

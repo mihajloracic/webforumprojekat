@@ -18,7 +18,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import rs.ftn.mr.webforum.entities.User;
 import rs.ftn.mr.webforum.entities.*;
 import rs.ftn.mr.webforum.dao.*;
 import rs.ftn.mr.webforum.daoimpl.*;
@@ -177,21 +176,21 @@ public class UserService {
 		cookieDao.delete(value);
 
 	}
-	@GET
+	
+	@POST
 	@Path("/search")
+	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Consumes({ MediaType.TEXT_PLAIN, MediaType.APPLICATION_XML})
-	public Response search() {	
-	// userDao.search(String naslov,String sadrzaj, String autor, String podforum)
-		Response response;		
+	public Response searchAll(SearchJson json) {	
+		
+		Response response;
+		
 		UserDAO userDao = new UserDAOImpl();
-	    response = Response.
-	    		status(200)
-	    		.entity(userDao.searchByNicName("asd"))
-	    		.build();
+	    response = Response.status(200)
+	    		.entity(userDao.searchByNicName(json.getKorisnik())).build();
 	
 		return response;
-	}	
+	}
    
 	
 }

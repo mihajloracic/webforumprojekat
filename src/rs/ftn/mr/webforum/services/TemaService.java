@@ -31,6 +31,7 @@ import rs.ftn.mr.webforum.daoimpl.PodforumDaoImpl;
 import rs.ftn.mr.webforum.daoimpl.TemaDaoImpl;
 import rs.ftn.mr.webforum.daoimpl.UserDAOImpl;
 import rs.ftn.mr.webforum.entities.LikeTema;
+import rs.ftn.mr.webforum.entities.SearchJson;
 import rs.ftn.mr.webforum.entities.Tema;
 import rs.ftn.mr.webforum.entities.User;
  
@@ -38,8 +39,6 @@ import rs.ftn.mr.webforum.entities.User;
 @Path("/post")
 public class TemaService {
 	
-	@Context
-	HttpServletRequest request;
 	@Context
 	ServletContext ctx;
 	
@@ -156,17 +155,16 @@ public class TemaService {
 		return response;
 	
 	}
-	@GET
+	@POST
 	@Path("/search")
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Consumes({ MediaType.TEXT_PLAIN, MediaType.APPLICATION_XML})
-	public Response search() {	
-	// temaDao.search(String naslov,String sadrzaj, String autor, String podforum)
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public Response search(SearchJson json) {	
 		Response response;		
 		TemaDao temaDao = new TemaDaoImpl();
 	    response = Response.
 	    		status(200)
-	    		.entity(temaDao.search("asd","asd","","igr"))
+	    		.entity(temaDao.search(json.getNaslov(),json.getSadrzaj(),json.getAutor(),json.getPodforum()))
 	    		.build();
 	
 		return response;

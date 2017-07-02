@@ -1,5 +1,7 @@
 package rs.ftn.mr.webforum.services;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.POST;
@@ -16,6 +18,7 @@ import rs.ftn.mr.webforum.daoimpl.CookieDaoImpl;
 import rs.ftn.mr.webforum.daoimpl.PodforumDaoImpl;
 import rs.ftn.mr.webforum.daoimpl.UserDAOImpl;
 import rs.ftn.mr.webforum.entities.Podforum;
+import rs.ftn.mr.webforum.entities.SearchJson;
 import rs.ftn.mr.webforum.entities.User;
 
 @Path("/podforum")
@@ -63,18 +66,19 @@ public class PodforumService {
 		return response;
 	}
 	
-	@GET
+	@POST
 	@Path("/search")
+	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response searchAll() {	
+	public Response searchAll(SearchJson json) {	
 		
 		Response response;
 		
 		PodforumDao podforumDao = new PodforumDaoImpl();
-	
+		List list = podforumDao.Search(json.getNaslov(), json.getOpis(), json.getModerator());
 	    response = Response.
 	    		status(200)
-	    		.entity(podforumDao.Search("", "", "Miha"))
+	    		.entity(podforumDao.Search(json.getNaslov(), json.getOpis(), json.getModerator()))
 	    		.build();
 	
 		return response;
