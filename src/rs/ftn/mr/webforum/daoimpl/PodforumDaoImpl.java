@@ -10,6 +10,7 @@ import java.util.List;
 import rs.ftn.mr.webforum.dao.PodforumDao;
 import rs.ftn.mr.webforum.db.DbConnection;
 import rs.ftn.mr.webforum.entities.Podforum;
+import rs.ftn.mr.webforum.entities.User;
 import rs.ftn.mr.webforum.util.DbUtils;
 
 public class PodforumDaoImpl implements PodforumDao{
@@ -103,7 +104,7 @@ public class PodforumDaoImpl implements PodforumDao{
 	
 	@Override
 	public int addNew(Podforum podforum) {
-		// TODO Auto-generated method stub
+
 		String sql = "INSERT INTO podforum (naziv,opis,spisak_pravila,odgovorni_moderator)"
 				+ "VALUES (?, ?, ?, ?)";
 		PreparedStatement p = null;
@@ -156,6 +157,63 @@ public class PodforumDaoImpl implements PodforumDao{
 		}
     	return null;
 	}
+
+	@Override
+	public List<Podforum> followedByUser(int userId) {
+		String sql = "select pf.* from podforum pf join podforum_user_pracenje pup on pf.id=pup.id_podforum where pup.id_user=?";
+    	PreparedStatement p = null;
+		ResultSet rs = null;
+		try {
+			p = DbConnection.getConnection()
+						.prepareStatement(sql);
+			p.setInt(1, userId);
+			rs = p.executeQuery();
+			return this.processSelectAll(rs);
+		} catch (SQLException e) {
+			System.out.println(e.toString());
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+		}
+		finally {
+			DbUtils.close(rs, p);
+		}
+    	return null;
+
+	}
+
+	@Override
+	public List<Podforum> followedByUser(User user) {
+		
+		return followedByUser(user.getId());
+	}
+
+	@Override
+	public int addFollowedByUser(Podforum podforum, User user) {
+		String sql = "INSERT INTO podforum_user_pracenje (id_podforum,id_user)"
+				+ "VALUES (?, ?)";
+		PreparedStatement p = null;
+		try {
+			
+			p = DbConnection.getConnection().prepareStatement(sql);
+			
+			p.setInt(1, podforum.getId());
+			p.setInt(2, user.getId());
+			p.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			DbUtils.close(p);
+		}
+
+		return 0;
+	}
+
 
 
 }

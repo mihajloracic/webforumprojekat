@@ -196,4 +196,28 @@ public class TemaDaoImpl implements TemaDao{
     	return null;
 	}
 
+	@Override
+	public List<Tema> getFromForumsFollowedByUser(User user) {
+		String sql;
+		sql="select t.* from tema t join podforum pf on t.id_podforum=pf.id join podforum_user_pracenje pup on pf.id=pup.id_podforum where pup.id_user=? order by t.id desc";
+		PreparedStatement p = null;
+		ResultSet rs = null;
+		try {
+			p = DbConnection.getConnection()
+						.prepareStatement(sql);
+			p.setInt(1, user.getId());
+			rs = p.executeQuery();
+			return this.processSelectAll(rs);
+		} catch (SQLException e) {
+			System.out.println(e.toString());
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+		}
+		finally {
+			DbUtils.close(rs, p);
+		}
+		return null;
+	}
+
 }

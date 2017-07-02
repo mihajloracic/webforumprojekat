@@ -9,8 +9,11 @@ public interface PodforumDao {
 	public Podforum selectById(int podforumId) ;
 	public Podforum selectByName(String podforumName) ;
 	public List<Podforum> Search(String Naslov,String Opis, String moderatorUser);
+	public List<Podforum> followedByUser(int userId);
 	public List<Podforum> selectAll() ;
 	public void delete(int podforumId) ;
 	public void update(Podforum podforum) ;
 	public int addNew(Podforum podforum);
-}
+	public int addFollowedByUser(Podforum podforum,User user);
+	public List<Podforum> followedByUser(User user);	
+	}
