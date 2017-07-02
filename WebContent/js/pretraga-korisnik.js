@@ -9,9 +9,10 @@ $( document ).ready(function() {
     			"korisnik" : $("#korisnik").val(),
     		}),
     		success : function(data) {
+    			$("#posts").empty()
     			data.forEach(function(element) {
     				console.log(element);
-    				$( "#posts" ).append( '<a href="home.html?name=' + element.id + '" class="list-group-item list-group-item-action">'+element.user+'</a>' );
+    				$( "#posts" ).append( '<a href="message.html?id=' + element.id + '&name=' + element.user + '" class="list-group-item list-group-item-action">'+element.user+'</a>' );
     			});
     			
     		},

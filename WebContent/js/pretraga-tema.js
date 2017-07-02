@@ -12,6 +12,7 @@ $( document ).ready(function() {
     			"podforum" : $("#podforum").val()
     		}),
     		success : function(data) {
+    			$("#posts").empty()
     			data.forEach(function(element) {
     				$( "#posts" ).append( '<a href="tema.html?id=' + element.id + '" class="list-group-item list-group-item-action">'+element.naslov+'</a>' );
     			});

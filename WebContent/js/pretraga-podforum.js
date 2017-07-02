@@ -11,6 +11,7 @@ $( document ).ready(function() {
     			"moderator" : $("#moderator").val(),
     		}),
     		success : function(data) {
+    			$("#posts").empty()
     			data.forEach(function(element) {
     				console.log(element);
     				$( "#posts" ).append( '<a href="home.html?name=' + element.id + '" class="list-group-item list-group-item-action">'+element.naziv+'</a>' );
