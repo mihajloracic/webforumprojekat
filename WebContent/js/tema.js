@@ -141,6 +141,9 @@ function updateTema(){
 			$("#brojLike").append(data.brojLike);
 			$("#brojDislike").append(data.brojDislike);
 			$("#" + data.tip).show();
+			if(data.tip == "Slika"){
+				$("#Slika").attr("src", "images/" + data.slika);
+			}
 			$("#naslov").append(data.naslov);
 			$("#Tekst").append(data.tekst);
 			$("#Link").append(data.link);

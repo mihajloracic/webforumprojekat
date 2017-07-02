@@ -74,7 +74,7 @@ public class KomentarService {
 		
 		k = komentarDao.selectById(k.getId());
 	    response = Response.status(200)
-	    		.entity(komentarDao.selectByParentIdPost(k.getId_tema(), k.getId_parent_komentar()))
+	    		.entity(komentarDao.selectByParentIdPost(k.getId(),k.getId_tema()))
 	    		.build();
 
 		return response;

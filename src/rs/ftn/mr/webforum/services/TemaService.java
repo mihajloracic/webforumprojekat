@@ -8,11 +8,14 @@ import java.io.InputStream;
 import java.util.UUID;
  
 import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -33,13 +36,19 @@ import rs.ftn.mr.webforum.entities.User;
  
 @Path("/post")
 public class TemaService {
- 
+	
+	@Context
+	HttpServletRequest request;
+	@Context
+	ServletContext ctx;
+	
     @POST
     @Path("/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response uploadFile(InputStream uploadedInputStream) {
-        String fileLocation = "C:\\Users\\mihajlo\\JavaWebProjekti\\rs.ftn.mr.webforum\\WebContent\\images\\"; // fileDetail.getFileName();
+        String fileLocation = ctx.getRealPath("") + "\\images\\"; // fileDetail.getFileName();
         String imageId = UUID.randomUUID().toString()  + ".jpg";
+        
         fileLocation += imageId;
         File directory = new File("~/");
         System.out.println(directory.getAbsolutePath());
