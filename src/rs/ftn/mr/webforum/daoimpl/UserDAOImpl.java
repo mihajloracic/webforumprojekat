@@ -128,7 +128,21 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void update(User user) {
-		// TODO Auto-generated method stub
+		String sql = "UPDATE user set uloga=? where id=? ";
+		PreparedStatement p = null;
+		try {			
+			p = DbConnection.getConnection().prepareStatement(sql);			
+			p.setString(1,user.getUloga());
+			p.setInt(2, user.getId());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+
+			e.printStackTrace();
+		}
+		finally {
+			DbUtils.close(p);
+		}
 		
 	}
 
