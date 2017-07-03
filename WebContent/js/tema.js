@@ -1,5 +1,6 @@
+var idAutora;
 $( document ).ready(function() {
-
+	$("#izbrisiTemu").hide();
 	$(document).on('click','.likeKomentar', function(){
 		var id = $(this).parent().parent().attr("id");
 		var idCont = id;
@@ -128,11 +129,30 @@ $( document ).ready(function() {
 		});
 	});
 	updateTema();
+	$.ajax({
+		method : 'POST',
+		url : "../rs.ftn.mr.webforum/rest/user/cookie",
+		contentType : 'text/plain',
+		dataType : "text",
+		data : $.cookie("web-forum"),
+		success : function(data) {
+			console.log(data);
+			var d = JSON.parse(data);
+			if(d.uloga == "admin" || d.uloga == "moderatora" || d.id == idAutora){
+				$("#izbrisiTemu").show();
+			}
+			$("#user-name").text(d.user);
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("Greska");
+		}
+	});
 });
 function updateTema(){
 	$(".content").hide();
 	$.ajax({
 		method : 'POST',
+		async: false,
 		url : "/rs.ftn.mr.webforum/rest/post/temaById",
 		contentType : 'text/plain',
 		data :  getUrlVars()["id"],
@@ -144,11 +164,13 @@ function updateTema(){
 			if(data.tip == "Slika"){
 				$("#Slika").attr("src", "images/" + data.slika);
 			}
+			temaAutor = data.autor;
 			$("#naslov").append(data.naslov);
 			$("#Tekst").append(data.tekst);
 			$("#Link").append(data.link);
 			$("#Link").attr("href", data.link);
 			$("#createdOn").append(data.datum_kreiranja);
+			
 			$.ajax({
 				method : 'POST',
 				url : "/rs.ftn.mr.webforum/rest/user/getUserById",
@@ -156,12 +178,15 @@ function updateTema(){
 				data :  data.autor+"",
 				success : function(userStigao) {
 					$("#user").append(userStigao.user);
+					
+					
 				},
 				error : function(XMLHttpRequest, textStatus, errorThrown) {
 					console.log(textStatus);
 					console.log(errorThrown);
 				}
 			});
+			
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
 			console.log(textStatus);

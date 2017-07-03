@@ -50,6 +50,27 @@ public class PodforumService {
 		return response;
 	}
 	@POST
+	@Path("/follow")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public Response follow(Podforum podforum,@CookieParam("web-forum") String value) {	
+		
+		Response response;
+		
+		PodforumDao podforumDao = new PodforumDaoImpl();
+		UserDAO userDao = new UserDAOImpl();
+		CookieDao cookieDao = new CookieDaoImpl();
+		int userId = cookieDao.getById(value);
+		if(userId == 0){
+			response = Response.status(405).build();
+			return response;
+		}
+		User u = userDao.selectById(userId);
+	    podforumDao.addFollowedByUser(podforum, u);	
+	    response = Response.status(200).build();
+		
+		return response;
+	}
+	@POST
 	@Path("/delete")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Response delete(Podforum podforum,@CookieParam("web-forum") String value) {	
@@ -103,6 +124,22 @@ public class PodforumService {
 	    response = Response.
 	    		status(200)
 	    		.entity(podforumDao.Search(json.getNaslov(), json.getOpis(), json.getModerator()))
+	    		.build();
+	
+		return response;
+	}
+	@POST
+	@Path("/getFollowed")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getFollowed(@CookieParam("web-forum") String value) {	
+		
+		Response response;
+		CookieDao cookieDao = new CookieDaoImpl();
+		PodforumDao podforumDao = new PodforumDaoImpl();
+		int userId = cookieDao.getById(value);
+	    response = Response.
+	    		status(200)
+	    		.entity(podforumDao.followedByUser(userId))
 	    		.build();
 	
 		return response;

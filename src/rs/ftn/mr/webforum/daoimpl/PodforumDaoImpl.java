@@ -83,8 +83,24 @@ public class PodforumDaoImpl implements PodforumDao{
 
 	@Override
 	public void delete(int podforumId) {
-		// TODO Auto-generated method stub
-		
+		String sql = "delete from podforum where id=?";
+    	PreparedStatement p = null;
+		ResultSet rs = null;
+		try {
+			p = DbConnection.getConnection()
+						.prepareStatement(sql);
+			p.setInt(1, podforumId);
+			p.execute();
+
+		} catch (SQLException e) {
+			System.out.println(e.toString());
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+		}
+		finally {
+			DbUtils.close(rs, p);
+		}
 	}
 
 	@Override

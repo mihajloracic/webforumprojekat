@@ -89,8 +89,24 @@ public class TemaDaoImpl implements TemaDao{
 
 	@Override
 	public void delete(int id) {
-		// TODO Auto-generated method stub
-		
+		String sql = "delete from tema where id=?";
+    	PreparedStatement p = null;
+		ResultSet rs = null;
+		try {
+			p = DbConnection.getConnection()
+						.prepareStatement(sql);
+			p.setInt(1, id);
+			p.execute();
+
+		} catch (SQLException e) {
+			System.out.println(e.toString());
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+		}
+		finally {
+			DbUtils.close(rs, p);
+		}
 	}
 
 	@Override

@@ -170,6 +170,23 @@ public class TemaService {
 		return response;
 	}	
 	@POST
+	@Path("/getFollowed")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getFollowed(@CookieParam("web-forum") String value) {	
+		Response response;		
+		TemaDao temaDao = new TemaDaoImpl();
+		CookieDao cookieDao = new CookieDaoImpl();
+		int userId = cookieDao.getById(value);
+		User user = new User();
+		user.setId(userId);
+	    response = Response.
+	    		status(200)
+	    		.entity(temaDao.getFromForumsFollowedByUser(user))
+	    		.build();
+	
+		return response;
+	}
+	@POST
 	@Path("/liked")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response searchTemaLiked(@CookieParam("web-forum") String value) {	

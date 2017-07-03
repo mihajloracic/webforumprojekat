@@ -26,9 +26,10 @@ import rs.ftn.mr.webforum.daoimpl.*;
 @Path("/user")
 public class UserService {
 	
-	@GET
+	@POST
+	@Path("users")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public List<User> getUsers_JSON() {
+    public Response getUsers_JSON() {
 		UserDAO userDAO = new UserDAOImpl();
         List<User> users = userDAO.selectAll();
         System.out.println("List of Users " + users.size());
@@ -36,11 +37,11 @@ public class UserService {
     	int i=0; 
         while (i < users.size()){
         	  user= (User) users.get(i);
-            System.out.println(user.getImePrezime());	
+            user.setLozinka("ne dam ti sifru asistente");
             i++;
           }
     	        
-       return users;
+       return Response.status(200).entity(users).build();
     }
  	
 	@GET

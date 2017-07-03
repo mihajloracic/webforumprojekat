@@ -1,6 +1,27 @@
 var odgvorniModerator;
 $(document).ready(function() {
 	$("#buttonObrisiPodforum").hide();
+	$("#buttonPrati").click(function(){
+		if($.cookie("web-forum") != null && $.cookie("web-forum") != undefined && $.cookie("web-forum") != ""){
+
+			$.ajax({
+				method : 'POST',
+				url : "../rs.ftn.mr.webforum/rest/podforum/follow",
+				contentType : "application/json",
+				data : JSON.stringify({ "id" : getUrlVars()["name"]}),
+				success : function() {
+	                alert("uspesno ste zapratili forum")
+				},
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+					alert("Greska");
+				}
+			});
+		}	else{
+			window.location.href = "register.html";
+			return;
+		}
+
+	});
 	$("#buttonObrisiPodforum").click(function(){
 		$.ajax({
 			method : 'POST',
