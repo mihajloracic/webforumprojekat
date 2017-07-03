@@ -12,5 +12,4 @@ public interface ZalbaDao {
 	public void update(Zalba zalba) ;
 	void delete(Zalba zalba);
     void delete(int id) ;
-
 }
