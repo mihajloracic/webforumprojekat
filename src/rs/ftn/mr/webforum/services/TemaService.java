@@ -93,6 +93,36 @@ public class TemaService {
 		}
 		return response;
 	}
+    
+    @POST
+	@Path("/delete")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public Response delete(Tema tema,@CookieParam("web-forum") String value) {	
+		
+		Response response;
+		
+		TemaDao temaDao = new TemaDaoImpl();
+		
+		CookieDao cookieDao = new CookieDaoImpl();
+		
+		PodforumDao podforumDao = new PodforumDaoImpl();
+		int userId = cookieDao.getById(value);
+		UserDAO userDao = new UserDAOImpl();
+		User u = userDao.selectById(userId);
+		if(!u.getUloga().equals("admin") && !u.getUloga().equals("moderator")){
+			response = Response.status(401).build();
+			return response;
+		}
+		tema.setAutor(userId);
+		if(userId != 0 && userId != -1){
+			temaDao.delete(tema.getId());
+			response = Response.status(200).build();
+		}else{
+			response = Response.status(401).build();
+		}
+		return response;
+	}
+    
 	@POST
 	@Path("/teme")
 	@Produces({ MediaType.APPLICATION_JSON })

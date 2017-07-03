@@ -1,5 +1,23 @@
 var idAutora;
 $( document ).ready(function() {
+	$("#izbrisiTemu").click(function(){
+		$.ajax({
+			method : 'POST',
+			url : "../rs.ftn.mr.webforum/rest/post/delete",
+			contentType : 'application/json',
+			data: JSON.stringify({
+				"id" :  getUrlVars()["id"]
+			}),
+			success : function(data) {
+				console.log(data)
+				window.location.href = "home.html"
+			},
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		});
+	})
 	$("#izbrisiTemu").hide();
 	$(document).on('click','.likeKomentar', function(){
 		var id = $(this).parent().parent().attr("id");
@@ -138,7 +156,7 @@ $( document ).ready(function() {
 		success : function(data) {
 			console.log(data);
 			var d = JSON.parse(data);
-			if(d.uloga == "admin" || d.uloga == "moderatora" || d.id == idAutora){
+			if(d.uloga == "admin" || d.uloga == "moderator" || d.id == idAutora){
 				$("#izbrisiTemu").show();
 			}
 			$("#user-name").text(d.user);

@@ -119,6 +119,20 @@ public class UserService {
 		return response;
 	}
 	@POST
+	@Path("/update")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public Response update(User user) {	
+		System.out.println(user.getImePrezime());
+		
+		Response response;
+		
+		UserDAO userDAO = new UserDAOImpl();
+		user.setUloga("moderator");
+		userDAO.update(user);
+		return Response.status(200)
+	    		.build();
+	}
+	@POST
 	@Path("/cookie")
 	@Consumes({ MediaType.TEXT_PLAIN, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON })

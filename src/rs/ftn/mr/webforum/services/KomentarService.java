@@ -85,7 +85,7 @@ public class KomentarService {
 		int userId = cookieDao.getById(value);
 		User u = userDao.selectById(userId);
 		komentar = komentarDao.selectById(komentar.getId());
-		if(userId != komentar.getAutor() && u.getUloga() != "admin" && u.getUloga() != "moderator"){
+		if(userId != komentar.getAutor() && !u.getUloga().equals("admin") && !u.getUloga().equals("moderator")){
 			response = Response.status(401).build();
 			return response;
 		}

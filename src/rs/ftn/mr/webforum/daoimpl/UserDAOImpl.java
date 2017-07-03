@@ -134,6 +134,7 @@ public class UserDAOImpl implements UserDAO {
 			p = DbConnection.getConnection().prepareStatement(sql);			
 			p.setString(1,user.getUloga());
 			p.setInt(2, user.getId());
+			p.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {

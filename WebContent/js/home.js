@@ -96,12 +96,14 @@ $(document).ready(function() {
 	if($.cookie("web-forum") != null && $.cookie("web-forum") != undefined && $.cookie("web-forum") != ""){
 		$( "#user-looged-in" ).hide();
 		$( "#user-name" ).show();
+		$( "#prava" ).hide();
 		$( "#logout" ).show();
 		$( "#addPodforum" ).hide();
 	}else{
 		$( "#user-looged-in" ).show();
 		$( "#user-name" ).hide();
 		$( "#logout" ).hide();
+		$( "#prava" ).hide();
 		$( "#addPodforum" ).hide();
 	}
 	$("#logout").on("click",function() {
@@ -150,6 +152,7 @@ $(document).ready(function() {
 			var d = JSON.parse(data);
 			if(d.uloga == "admin" || d.id == odgvorniModerator){
 				$( "#addPodforum" ).show();
+				$( "#prava" ).show();
 				$("#buttonObrisiPodforum").show();
 			}
 			$("#user-name").text(d.user);
